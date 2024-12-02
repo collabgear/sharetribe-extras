@@ -63,7 +63,7 @@
     "sharetribe-flex-sdk": "^1.21.1",
     "short-unique-id": "^5.2.0",
     "sharetribe-scripts": "7.0.0",
-    "sitemap": "^7.1.1",
+    "sitemap": "^8.0.0",
     "smoothscroll-polyfill": "^0.4.0",
     "source-map-support": "^0.5.21",
     "sweetalert": "^2.1.2",
