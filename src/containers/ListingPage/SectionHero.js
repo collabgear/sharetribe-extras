@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import swal from 'sweetalert';
 
 import { FormattedMessage, useIntl } from '../../util/reactIntl';
@@ -16,6 +16,11 @@ import { FILL_TYPE_EMPTY, FILL_TYPE_FULL, SIZE_BIG } from '../../components/Icon
 const SectionHero = props => {
   const intl = useIntl();
   const config = useConfiguration();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const {
     title,
     listing,
@@ -120,7 +125,7 @@ const SectionHero = props => {
   return (
     <section className={css.sectionHero} data-testid="hero">
       <div className={css.imageWrapperForSectionHero} onClick={handleViewPhotosClick}>
-        {listing.id && isOwnListing ? (
+        {mounted && listing.id && isOwnListing ? (
           <div onClick={e => e.stopPropagation()} className={css.actionBarContainerForHeroLayout}>
             {noPayoutDetailsSetWithOwnListing ? (
               <ActionBarMaybe
