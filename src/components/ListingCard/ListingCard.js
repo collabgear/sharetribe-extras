@@ -4,10 +4,9 @@ import classNames from 'classnames';
 import swal from 'sweetalert';
 
 import { useConfiguration } from '../../context/configurationContext';
-import { FormattedMessage, intlShape, injectIntl } from '../../util/reactIntl';
+import { FormattedMessage, useIntl, intlShape, injectIntl } from '../../util/reactIntl';
 import { displayPrice } from '../../util/configHelpers';
 import { lazyLoadWithDimensions } from '../../util/uiHelpers';
-import { propTypes } from '../../util/types';
 import { formatMoney } from '../../util/currency';
 import { ensureListing, ensureUser } from '../../util/data';
 import { richText } from '../../util/richText';
@@ -71,20 +70,33 @@ const PriceMaybe = props => {
   );
 };
 
+/**
+ * ListingCard
+ *
+ * @component
+ * @param {Object} props
+ * @param {string?} props.className add more style rules in addition to component's own css.root
+ * @param {string?} props.rootClassName overwrite components own css.root
+ * @param {Object} props.listing API entity: listing or ownListing
+ * @param {string?} props.renderSizes for img/srcset
+ * @param {Function?} props.setActiveListing
+ * @param {boolean?} props.showAuthorInfo
+ * @returns {JSX.Element} listing card to be used in search result panel etc.
+ */
 export const ListingCardComponent = props => {
   const config = useConfiguration();
+  const intl = props.intl || useIntl();
   const {
     className,
     rootClassName,
-    intl,
     history,
     routeConfiguration,
     currentUser,
     listing,
     renderSizes,
     setActiveListing,
-    showAuthorInfo,
     onToggleFavorite,
+    showAuthorInfo = true,
   } = props;
   const classes = classNames(rootClassName || css.root, className);
   const { favoriteListingIds = []} = currentUser?.attributes?.profile?.privateData || {};
