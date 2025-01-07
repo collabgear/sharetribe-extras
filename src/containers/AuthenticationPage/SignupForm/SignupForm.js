@@ -1,11 +1,9 @@
 import React from 'react';
-import { bool, node, string } from 'prop-types';
-import { compose } from 'redux';
 import { Form as FinalForm } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
 import classNames from 'classnames';
 
-import { FormattedMessage, injectIntl, intlShape } from '../../../util/reactIntl';
+import { FormattedMessage, useIntl } from '../../../util/reactIntl';
 import { propTypes } from '../../../util/types';
 import * as validators from '../../../util/validators';
 import { getPropsForCustomUserFieldInputs } from '../../../util/userHelpers';
@@ -295,4 +293,22 @@ SignupFormComponent.propTypes = {
 const SignupForm = compose(injectIntl)(SignupFormComponent);
 SignupForm.displayName = 'SignupForm';
 
-export default SignupForm;
+/**
+ * A component that renders the signup form.
+ *
+ * @component
+ * @param {Object} props
+ * @param {string} props.rootClassName - The root class name that overrides the default class css.root
+ * @param {string} props.className - The class that extends the root class
+ * @param {string} props.formId - The form id
+ * @param {boolean} props.inProgress - Whether the form is in progress
+ * @param {ReactNode} props.termsAndConditions - The terms and conditions
+ * @param {string} props.preselectedUserType - The preselected user type
+ * @param {propTypes.userTypes} props.userTypes - The user types
+ * @param {propTypes.listingFields} props.userFields - The user fields
+ * @returns {JSX.Element}
+ */
+const SignupForm = props => {
+  const intl = useIntl();
+  return <SignupFormComponent {...props} intl={intl} />;
+};
