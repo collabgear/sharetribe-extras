@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import ReactImageGallery from 'react-image-gallery';
 import swal from 'sweetalert';
@@ -56,11 +55,24 @@ const getFirstImageAspectRatio = (firstImage, scaledVariant) => {
     : { aspectWidth: 1, aspectHeight: 1 };
 };
 
+/**
+ * The ListingImageGallery component.
+ *
+ * @component
+ * @param {Object} props
+ * @param {string} [props.className] - Custom class that extends the default class for the root element
+ * @param {string} [props.rootClassName] - Custom class that overrides the default class for the root element
+ * @param {Array<propTypes.image>} props.images - The images
+ * @param {Array<string>} props.imageVariants - The image variants
+ * @param {Array<string>} props.thumbnailVariants - The thumbnail variants
+ * @returns {JSX.Element} listing image gallery component
+ */
 const ListingImageGallery = props => {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const config = useConfiguration();
+  const intl = props.intl || useIntl();
   const {
-    intl, rootClassName, className, images, imageVariants, thumbnailVariants,
+    rootClassName, className, images, imageVariants, thumbnailVariants,
     listing, currentUser, history, routeConfiguration, onToggleFavorite,
   } = props;
   const { favoriteListingIds = []} = currentUser?.attributes?.profile?.privateData || {};
