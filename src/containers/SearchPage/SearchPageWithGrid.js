@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { array, bool, func, oneOf, object, shape, string, arrayOf } from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -9,7 +8,7 @@ import classNames from 'classnames';
 import { useConfiguration } from '../../context/configurationContext';
 import { useRouteConfiguration } from '../../context/routeConfigurationContext';
 
-import { useIntl, intlShape, FormattedMessage } from '../../util/reactIntl';
+import { useIntl, FormattedMessage } from '../../util/reactIntl';
 import {
   isAnyFilterActive,
   isMainSearchTypeKeywords,
@@ -190,7 +189,7 @@ export class SearchPageComponent extends Component {
     const {
       intl,
       currentUser,
-      listings,
+      listings = [],
       location,
       onManageDisableScrolling,
       onToggleFavorite,
@@ -198,8 +197,8 @@ export class SearchPageComponent extends Component {
       scrollingDisabled,
       searchInProgress,
       searchListingsError,
-      searchParams,
       history,
+      searchParams = {},
       routeConfiguration,
       config,
     } = this.props;
@@ -478,6 +477,21 @@ SearchPageComponent.propTypes = {
   // from useRouteConfiguration
   routeConfiguration: arrayOf(propTypes.route).isRequired,
 };
+
+/**
+ * SearchPage component with grid layout (no map)
+ *
+ * @param {Object} props
+ * @param {propTypes.currentUser} [props.currentUser] - The current user
+ * @param {Array<propTypes.listing>} [props.listings] - The listings
+ * @param {propTypes.pagination} [props.pagination] - The pagination
+ * @param {boolean} [props.scrollingDisabled] - Whether the scrolling is disabled
+ * @param {boolean} [props.searchInProgress] - Whether the search is in progress
+ * @param {propTypes.error} [props.searchListingsError] - The search listings error
+ * @param {Object} [props.searchParams] - The search params from the Redux state
+ * @param {Function} [props.onManageDisableScrolling] - The function to manage the disable scrolling
+ * @returns {JSX.Element}
+ */
 
 const EnhancedSearchPage = props => {
   const config = useConfiguration();

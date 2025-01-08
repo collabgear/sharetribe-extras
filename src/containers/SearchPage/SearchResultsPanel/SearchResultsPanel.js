@@ -1,5 +1,8 @@
 import React from 'react';
+<<<<<<< HEAD
 import { array, bool, node, object, string, func, shape, arrayOf } from 'prop-types';
+=======
+>>>>>>> 5960d84b3 (containers/SearchPage (and its nested components): remove defaultProps (deprecated) and propTypes.)
 import classNames from 'classnames';
 
 import { propTypes } from '../../../util/types';
@@ -8,10 +11,25 @@ import { ListingCard, PaginationLinks } from '../../../components';
 import css from './SearchResultsPanel.module.css';
 import { intlShape } from '../../../util/reactIntl';
 
+/**
+ * SearchResultsPanel component
+ *
+ * @component
+ * @param {Object} props
+ * @param {string} [props.className] - Custom class that extends the default class for the root element
+ * @param {string} [props.rootClassName] - Custom class that extends the default class for the root element
+ * @param {Array<propTypes.listing>} props.listings - The listings
+ * @param {propTypes.pagination} props.pagination - The pagination
+ * @param {Object} props.search - The search
+ * @param {Function} props.setActiveListing - The function to handle the active listing
+ * @param {boolean} [props.isMapVariant] - Whether the map variant is enabled
+ * @returns {JSX.Element}
+ */
 const SearchResultsPanel = props => {
   const {
     className,
     rootClassName,
+<<<<<<< HEAD
     currentUser,
     listings,
     pagination,
@@ -21,6 +39,13 @@ const SearchResultsPanel = props => {
     history,
     routeConfiguration,
     onToggleFavorite,
+=======
+    listings = [],
+    pagination,
+    search,
+    setActiveListing,
+    isMapVariant = true,
+>>>>>>> 5960d84b3 (containers/SearchPage (and its nested components): remove defaultProps (deprecated) and propTypes.)
   } = props;
   const classes = classNames(rootClassName || css.root, className);
 
@@ -82,6 +107,7 @@ const SearchResultsPanel = props => {
   );
 };
 
+<<<<<<< HEAD
 SearchResultsPanel.defaultProps = {
   children: null,
   className: null,
@@ -110,4 +136,6 @@ SearchResultsPanel.propTypes = {
   routeConfiguration: arrayOf(propTypes.route).isRequired,
 };
 
+=======
+>>>>>>> 5960d84b3 (containers/SearchPage (and its nested components): remove defaultProps (deprecated) and propTypes.)
 export default SearchResultsPanel;
