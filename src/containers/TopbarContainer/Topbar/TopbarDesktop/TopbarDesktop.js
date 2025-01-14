@@ -132,6 +132,7 @@ const ProfileMenu = ({ currentPage, currentUser, onLogout }) => {
  * @param {Object?} props.initialSearchFormValues
  * @param {Object} props.intl
  * @param {Object} props.config
+ * @param {boolean} props.showSearchForm
  * @returns {JSX.Element} search icon
  */
 const TopbarDesktop = props => {
@@ -149,6 +150,7 @@ const TopbarDesktop = props => {
     onLogout,
     onSearchSubmit,
     initialSearchFormValues = {},
+    showSearchForm,
   } = props;
   const [mounted, setMounted] = useState(false);
 
@@ -177,6 +179,21 @@ const TopbarDesktop = props => {
   const signupLinkMaybe = isAuthenticatedOrJustHydrated ? null : <SignupLink />;
   const loginLinkMaybe = isAuthenticatedOrJustHydrated ? null : <LoginLink />;
 
+  const searchFormMaybe = showSearchForm ? (
+    <TopbarSearchForm
+      className={classNames(css.searchLink, { [css.takeAvailableSpace]: giveSpaceForSearch })}
+      desktopInputRoot={css.topbarSearchWithLeftPadding}
+      onSubmit={onSearchSubmit}
+      initialValues={initialSearchFormValues}
+      appConfig={config}
+    />
+  ) : (
+    <div
+      className={classNames(css.spacer, { [css.takeAvailableSpace]: giveSpaceForSearch })}
+      desktopInputRoot={css.topbarSearchWithLeftPadding}
+    />
+  );
+
   return (
     <nav className={classes}>
       <LinkedLogo
@@ -185,13 +202,7 @@ const TopbarDesktop = props => {
         alt={intl.formatMessage({ id: 'TopbarDesktop.logo' }, { marketplaceName })}
         linkToExternalSite={config?.topbar?.logoLink}
       />
-      <TopbarSearchForm
-        className={classNames(css.searchLink, { [css.takeAvailableSpace]: giveSpaceForSearch })}
-        desktopInputRoot={css.topbarSearchWithLeftPadding}
-        onSubmit={onSearchSubmit}
-        initialValues={initialSearchFormValues}
-        appConfig={config}
-      />
+      {searchFormMaybe}
 
       <CustomLinksMenu
         currentPage={currentPage}
