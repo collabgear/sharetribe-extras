@@ -35,6 +35,13 @@ export const requiredStringNoTrim = message => value => {
   return typeof value === 'string' && value.length > 0 ? VALID : message;
 };
 
+export const requiredStringMatch = (message, matchValue) => value => {
+  return typeof value === 'string' && value.length > 0 &&
+         typeof matchValue === 'string' && matchValue.length > 0 &&
+          value === matchValue
+    ? VALID : message;
+};
+
 // DEPRECATED in favor of required
 export const requiredBoolean = message => value => {
   return typeof value === 'boolean' ? VALID : message;
