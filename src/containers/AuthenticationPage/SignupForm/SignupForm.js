@@ -91,6 +91,25 @@ const SignupFormComponent = props => (
         passwordMaxLength
       );
 
+      // password confirmation
+      const passwordConfirmationRequiredMessage = intl.formatMessage({
+        id: 'SignupForm.passwordConfirmationRequired',
+      });
+      const passwordConfirmationDoesNotMatchMessage = intl.formatMessage(
+        {
+          id: 'SignupForm.passwordConfirmationDoesNotMatch',
+        });
+      const passwordConfirmationRequired = validators.requiredStringNoTrim( passwordConfirmationRequiredMessage );
+      const passwordConfirmationMatch = validators.requiredStringMatch(
+        passwordConfirmationDoesNotMatchMessage,
+        values.password
+      );
+
+      const passwordConfirmationValidators = validators.composeValidators(
+        passwordConfirmationRequired,
+        passwordConfirmationMatch
+      );
+
       // Custom user fields. Since user types are not supported here,
       // only fields with no user type id limitation are selected.
       const userFieldProps = getPropsForCustomUserFieldInputs(userFields, intl, userType);
@@ -187,6 +206,21 @@ const SignupFormComponent = props => (
                   id: 'SignupForm.passwordPlaceholder',
                 })}
                 validate={passwordValidators}
+              />
+
+              <FieldTextInput
+                className={css.password}
+                type="password"
+                id={formId ? `${formId}.passwordConfirmation` : 'Confirmation'}
+                name="passwordConfirmation"
+                autoComplete="new-password"
+                label={intl.formatMessage({
+                  id: 'SignupForm.passwordConfirmationLabel',
+                })}
+                placeholder={intl.formatMessage({
+                  id: 'SignupForm.passwordConfirmationPlaceholder',
+                })}
+                validate={passwordConfirmationValidators}
               />
 
               <UserFieldPhoneNumber
