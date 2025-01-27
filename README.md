@@ -1,3 +1,25 @@
+# CollabGear template modifications for Sharetribe Web Template
+
+This repository is the fork from the official Sharetribe Web Template created by CollabGear 
+development agency is dedicated to introduce the commonly requested features according to our 
+many years of experience working on marketplace implementations using Sharetribe API and Web Template.
+
+**Features added on top of the standard Sharetribe Web Template**
+
+- Password Confirmation Field added to the singup page
+
+**Roadmap**
+
+- LinkedIn social signin and signup implementation
+- Apple social signin and signup implementation
+- Google Pay integration
+- Apple Pay integration
+- Calendar view page for aggregated bookings grid view ( similar to Google Calendar )
+- Bookings export to Google Calendar
+
+**Note**: Below are the setup and configuration instructions from the original Sharetribe
+Web Template repository.
+
 # Sharetribe Web Template
 
 [![CircleCI](https://circleci.com/gh/sharetribe/web-template.svg?style=svg)](https://circleci.com/gh/sharetribe/web-template)
