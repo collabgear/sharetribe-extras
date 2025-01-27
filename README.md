@@ -1,4 +1,4 @@
-# CollabGear template modifications for Sharetribe Web Template
+# CollabGear upgrades for Sharetribe Web Template
 
 This repository is the fork from the official Sharetribe Web Template created by CollabGear 
 development agency is dedicated to introduce the commonly requested features according to our 
