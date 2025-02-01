@@ -11,6 +11,7 @@ many years of experience working on marketplace implementations using Sharetribe
 **Roadmap**
 
 - Wishlist
+- Contact Us form
 - LinkedIn social signin and signup
 - Apple social signin and signup
 - Google Pay integration
