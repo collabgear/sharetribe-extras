@@ -10,13 +10,14 @@ many years of experience working on marketplace implementations using Sharetribe
 
 **Roadmap**
 
-- LinkedIn social signin and signup implementation
-- Apple social signin and signup implementation
+- Wishlist
+- LinkedIn social signin and signup
+- Apple social signin and signup
 - Google Pay integration
 - Apple Pay integration
 - Calendar view page for aggregated bookings grid view ( similar to Google Calendar )
 - Bookings export to Google Calendar
-- Implement admin interface as part of the web template
+- Admin interface as part of the web template
 - Referral system with referrals/referees listed on user profile, referral code generation, referral link and referral QR code sharing
 - Bulk upload of new listings/products by the user
 - System wide bulk upload of new listings/products by the administrator
