@@ -25,6 +25,7 @@ many years of experience working on marketplace implementations using Sharetribe
 - List view for the search results page
 - SEO friendly URL scheme for the search results page
 - Separate category pages
+- Topbar mega-menu with full categories tree
 - Anonimous checkout
 - Shopping cart
 - Abandoned cart
