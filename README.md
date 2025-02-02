@@ -30,6 +30,9 @@ many years of experience working on marketplace implementations using Sharetribe
 - Shopping cart
 - Abandoned cart
 
+If you need help with integrating the above features into your project, or any other custom features implementation - 
+we are open for hire and collaboration. Feel free to contact us at info@collabgear.com . 
+
 **Note**: Below are the setup and configuration instructions from the original Sharetribe
 Web Template repository.
 
