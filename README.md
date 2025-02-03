@@ -22,6 +22,9 @@ many years of experience working on marketplace implementations using Sharetribe
 - Referral system with referrals/referees listed on user profile, referral code generation, referral link and referral QR code sharing
 - Bulk upload of new listings/products by the user
 - System wide bulk upload of new listings/products by the administrator
+- Percentage discounts/coupons managed by providers
+- Featured listings managed by admin
+- Recommended listings managed by admin
 - List view for the search results page
 - SEO friendly URL scheme for the search results page
 - Separate category pages
