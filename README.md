@@ -19,6 +19,7 @@ many years of experience working on marketplace implementations using Sharetribe
 - Calendar view page for aggregated bookings grid view ( similar to Google Calendar )
 - Bookings export to Google Calendar
 - Admin interface as part of the web template
+- Control the visibility of the static pages for the anonimous and signed-in users
 - Referral system with referrals/referees listed on user profile, referral code generation, referral link and referral QR code sharing
 - Bulk upload of new listings/products by the user
 - System wide bulk upload of new listings/products by the administrator
