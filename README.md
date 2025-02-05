@@ -4,6 +4,8 @@ This repository is the fork from the official Sharetribe Web Template created by
 development agency is dedicated to introduce the commonly requested features according to our 
 many years of experience working on marketplace implementations using Sharetribe API and Web Template.
 
+You can find the live demo of this version at http://sharetribe-flex-extras.collabgear.work:3210/
+
 **Features added on top of the standard Sharetribe Web Template**
 
 - Password Confirmation Field added to the singup page
