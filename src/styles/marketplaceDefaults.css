@@ -28,6 +28,13 @@
   --colorBannedLight: var(--marketplaceColorLight);
   --colorBannedDark: var(--marketplaceColor);
 
+  /* Simple colors used for extra components */
+
+  --colorPink: #ffAAAA;
+  --colorDarkerPink: #ff3333;
+  --colorLighterPink: #ffdddd;
+  --colorRed: #ff0000;
+
   /* B&W and Grey palette */
 
   --colorWhite: hsl(0 0% 100%);
@@ -55,7 +62,7 @@
   --marketplaceColorLight: #7748d5; /* hsl(260, 63%, 56%), +10L from marketplaceColor */
   --marketplaceColorDark: #492296; /* hsl(260, 63%, 26%), -10L from marketplaceColor */
 
-  /** 
+  /**
    * The fill color used by <PrimaryButton>
    * These might be overwritten by values from hosted assets
    */
@@ -63,7 +70,7 @@
   --colorPrimaryButtonDark: var(--colorSuccessDark);
   --colorPrimaryButtonLight: var(--colorSuccessLight);
 
-  /** 
+  /**
    * The fill color used by <SecondaryButton>
    */
   --colorSecondaryButton: var(--colorWhite);
@@ -586,7 +593,7 @@ textarea {
 /* ================ Plain global CSS glasses ================ */
 
 /**
- * Note: even though these reflect element styles, 
+ * Note: even though these reflect element styles,
  * these are below element styles to allow overwrites using classes.
  */
 
@@ -955,7 +962,7 @@ textarea {
  * For actual buttons, use components: <Button>, <PrimaryButton>, <SecondaryButton>
  *
  * To create button look-and-feel for links, etc. combine button classes in CSS Modules:
- * 
+ *
  * <Button>:
  *   composes: buttonDefault from global;
  * <PrimaryButton>:

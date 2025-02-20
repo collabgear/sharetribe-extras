@@ -20,6 +20,9 @@ const SectionHero = props => {
     onImageCarouselClose,
     onManageDisableScrolling,
     noPayoutDetailsSetWithOwnListing,
+    history,
+    routeConfiguration,
+    onToggleFavorite,
   } = props;
 
   const hasImages = listing.images && listing.images.length > 0;

@@ -1,6 +1,7 @@
 import React from 'react';
-import { string, func, bool, oneOfType } from 'prop-types';
+import { string, func, bool, shape, oneOfType, arrayOf } from 'prop-types';
 import classNames from 'classnames';
+import swal from 'sweetalert';
 
 import { useConfiguration } from '../../context/configurationContext';
 
@@ -14,9 +15,14 @@ import { richText } from '../../util/richText';
 import { createSlug } from '../../util/urlHelpers';
 import { isBookingProcessAlias } from '../../transactions/transaction';
 
-import { AspectRatioWrapper, NamedLink, ResponsiveImage } from '../../components';
+import { AspectRatioWrapper, NamedLink, ResponsiveImage, IconHeart } from '../../components';
 
 import css from './ListingCard.module.css';
+
+import { FILL_TYPE_EMPTY, FILL_TYPE_FULL, SIZE_SMALL } from '../IconHeart/IconHeart';
+import omit from 'lodash/omit';
+import { createResourceLocatorString } from '../../util/routes';
+import { validUrlQueryParamsFromProps } from '../../containers/SearchPage/SearchPage.shared';
 
 const MIN_LENGTH_FOR_LONG_WORDS = 10;
 
@@ -73,15 +79,21 @@ export const ListingCardComponent = props => {
     className,
     rootClassName,
     intl,
+    history,
+    routeConfiguration,
+    currentUser,
     listing,
     renderSizes,
     setActiveListing,
     showAuthorInfo,
+    onToggleFavorite,
   } = props;
   const classes = classNames(rootClassName || css.root, className);
+  const { favoriteListingIds = []} = currentUser?.attributes?.profile?.privateData || {};
   const currentListing = ensureListing(listing);
   const id = currentListing.id.uuid;
   const { title = '', price, publicData } = currentListing.attributes;
+  const isFavorite = favoriteListingIds.includes( id );
   const slug = createSlug(title);
   const author = ensureUser(listing.author);
   const authorName = author.attributes.profile.displayName;
@@ -104,6 +116,32 @@ export const ListingCardComponent = props => {
       }
     : null;
 
+  const toggleFavorite = listingId => {
+    if( onToggleFavorite ){
+      if( currentUser ) {
+        onToggleFavorite( listingId );
+      } else {
+        swal({
+          title: intl.formatMessage({ id: "ListingCard.favoriteSignInTitle"}),
+          text: intl.formatMessage({ id: "ListingCard.favoriteSignInText"}),
+          icon: "info",
+          buttons: [
+            intl.formatMessage({ id: "ListingCard.favoriteSignInCancelButton"}),
+            intl.formatMessage({ id: "ListingCard.favoriteSignInOkButton"}),
+          ],
+          closeOnClickOutside: true,
+          closeOnEsc: true,
+        })
+        .then( willSignIn => {
+          if( willSignIn ){
+            history.push(createResourceLocatorString('LoginPage', routeConfiguration, {}));
+
+          }
+        });
+      }
+    }
+  };
+
   return (
     <NamedLink className={classes} name="ListingPage" params={{ id, slug }}>
       <AspectRatioWrapper
@@ -112,6 +150,23 @@ export const ListingCardComponent = props => {
         height={aspectHeight}
         {...setActivePropsMaybe}
       >
+        <div
+          title={ intl.formatMessage({
+            id: isFavorite ? "ListingCard.removeFromFavoritesHint" : "ListingCard.addToFavoritesHint"
+          })}
+          className={css.heartIconWrapper}
+          onClick={ event => {
+            event.preventDefault();
+            event.stopPropagation();
+
+            toggleFavorite( id );
+          }}
+        >
+          <IconHeart
+            fillType={ isFavorite ? FILL_TYPE_FULL : FILL_TYPE_EMPTY }
+            size={SIZE_SMALL}
+          />
+        </div>
         <LazyImage
           rootClassName={css.rootForImage}
           alt={title}
@@ -159,6 +214,14 @@ ListingCardComponent.propTypes = {
   renderSizes: string,
 
   setActiveListing: func,
+  onToggleFavorite: func.isRequired,
+
+  // from useHistory
+  history: shape({
+    push: func.isRequired,
+  }).isRequired,
+  // from useRouteConfiguration
+  routeConfiguration: arrayOf(propTypes.route).isRequired,
 };
 
 export default injectIntl(ListingCardComponent);

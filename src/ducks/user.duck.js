@@ -41,6 +41,10 @@ export const SEND_VERIFICATION_EMAIL_REQUEST = 'app/user/SEND_VERIFICATION_EMAIL
 export const SEND_VERIFICATION_EMAIL_SUCCESS = 'app/user/SEND_VERIFICATION_EMAIL_SUCCESS';
 export const SEND_VERIFICATION_EMAIL_ERROR = 'app/user/SEND_VERIFICATION_EMAIL_ERROR';
 
+export const TOGGLE_FAVORITE_REQUEST = 'app/user/TOGGLE_FAVORITE_REQUEST';
+export const TOGGLE_FAVORITE_SUCCESS = 'app/user/TOGGLE_FAVORITE_SUCCESS';
+export const TOGGLE_FAVORITE_ERROR = 'app/user/TOGGLE_FAVORITE_ERROR';
+
 // ================ Reducer ================ //
 
 const mergeCurrentUser = (oldCurrentUser, newCurrentUser) => {
@@ -69,6 +73,8 @@ const initialState = {
   currentUserHasOrdersError: null,
   sendVerificationEmailInProgress: false,
   sendVerificationEmailError: null,
+  toggleFavoriteInProgress: false,
+  toggleFavoriteError: null,
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -138,6 +144,24 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         sendVerificationEmailInProgress: false,
         sendVerificationEmailError: payload,
+      };
+
+    case TOGGLE_FAVORITE_REQUEST:
+      return {
+        ...state,
+        toggleFavoriteInProgress: true,
+        toggleFavoriteError: null,
+      };
+    case TOGGLE_FAVORITE_SUCCESS:
+      return {
+        ...state,
+        toggleFavoriteInProgress: false,
+      };
+    case TOGGLE_FAVORITE_ERROR:
+      return {
+        ...state,
+        toggleFavoriteInProgress: false,
+        toggleFavoriteError: payload,
       };
 
     default:
@@ -233,6 +257,20 @@ export const sendVerificationEmailSuccess = () => ({
 
 export const sendVerificationEmailError = e => ({
   type: SEND_VERIFICATION_EMAIL_ERROR,
+  error: true,
+  payload: e,
+});
+
+export const toggleFavoriteRequest = () => ({
+  type: TOGGLE_FAVORITE_REQUEST,
+});
+
+export const toggleFavoriteSuccess = () => ({
+  type: TOGGLE_FAVORITE_SUCCESS,
+});
+
+export const toggleFavoriteError = e => ({
+  type: TOGGLE_FAVORITE_ERROR,
   error: true,
   payload: e,
 });
@@ -431,4 +469,32 @@ export const sendVerificationEmail = () => (dispatch, getState, sdk) => {
     .sendVerificationEmail()
     .then(() => dispatch(sendVerificationEmailSuccess()))
     .catch(e => dispatch(sendVerificationEmailError(storableError(e))));
+};
+
+export const toggleFavorite = listingId => (dispatch, getState, sdk) => {
+  dispatch( toggleFavoriteRequest());
+
+  const { currentUser } = getState().user;
+
+  if (!currentUser) {
+    return Promise.reject(new Error('Favorite listings for anonimous users are not supported'));
+  }
+
+  const { favoriteListingIds = []} = currentUser?.attributes?.profile?.privateData || {};
+  const listingIndex = favoriteListingIds.indexOf( listingId );
+
+  if( listingIndex > -1 ){
+    favoriteListingIds.splice( listingIndex, 1 );
+  } else {
+    favoriteListingIds.push( listingId );
+  }
+
+  return sdk.currentUser
+    .updateProfile({ privateData: { favoriteListingIds }}, {  expand: false, })
+    .then(() => {
+      dispatch( fetchCurrentUser());
+
+      return dispatch( toggleFavoriteSuccess());
+    })
+    .catch(e => dispatch( toggleFavoriteError( storableError(e))));
 };

@@ -24,6 +24,13 @@
   }
 }
 
+.heartIconWrapper {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  z-index: 100;
+}
+
 .rootForImage {
   border: solid 1px var(--colorGrey100);
   border-radius: var(--borderRadiusMedium);

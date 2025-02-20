@@ -43,6 +43,7 @@ import {
 import { getMarketplaceEntities } from '../../ducks/marketplaceData.duck';
 import { manageDisableScrolling, isScrollingDisabled } from '../../ducks/ui.duck';
 import { initializeCardPaymentData } from '../../ducks/stripe.duck.js';
+import { toggleFavorite } from '../../ducks/user.duck';
 
 // Shared components
 import {
@@ -123,6 +124,7 @@ export const ListingPageComponent = props => {
     config,
     routeConfiguration,
     showOwnListingsOnly,
+    onToggleFavorite,
   } = props;
 
   const listingConfig = config.listing;
@@ -334,6 +336,9 @@ export const ListingPageComponent = props => {
           handleViewPhotosClick={handleViewPhotosClick}
           onManageDisableScrolling={onManageDisableScrolling}
           noPayoutDetailsSetWithOwnListing={noPayoutDetailsSetWithOwnListing}
+          history={history}
+          routeConfiguration={routeConfiguration}
+          onToggleFavorite={onToggleFavorite}
         />
         <div className={css.contentWrapperForHeroLayout}>
           <div className={css.mainColumnForHeroLayout}>
@@ -599,6 +604,7 @@ const mapDispatchToProps = dispatch => ({
   onInitializeCardPaymentData: () => dispatch(initializeCardPaymentData()),
   onFetchTimeSlots: (listingId, start, end, timeZone) =>
     dispatch(fetchTimeSlots(listingId, start, end, timeZone)),
+  onToggleFavorite: listingId => dispatch( toggleFavorite( listingId )),
 });
 
 // Note: it is important that the withRouter HOC is **outside** the
