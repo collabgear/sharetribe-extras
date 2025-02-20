@@ -41,7 +41,6 @@ import {
   initialValues,
   searchParamsPicker,
   validUrlQueryParamsFromProps,
-  validFilterParams,
   cleanSearchFromConflictingParams,
   createSearchResultSchema,
   pickListingFieldFilters,
@@ -64,6 +63,20 @@ const MODAL_BREAKPOINT = 768; // Search is in modal on mobile layout
 // With this offset we move the dropdown a few pixels on desktop layout.
 const FILTER_DROPDOWN_OFFSET = -14;
 
+/**
+ * SearchPage component with grid layout (no map)
+ *
+ * @param {Object} props
+ * @param {propTypes.currentUser} [props.currentUser] - The current user
+ * @param {Array<propTypes.listing>} [props.listings] - The listings
+ * @param {propTypes.pagination} [props.pagination] - The pagination
+ * @param {boolean} [props.scrollingDisabled] - Whether the scrolling is disabled
+ * @param {boolean} [props.searchInProgress] - Whether the search is in progress
+ * @param {propTypes.error} [props.searchListingsError] - The search listings error
+ * @param {Object} [props.searchParams] - The search params from the Redux state
+ * @param {Function} [props.onManageDisableScrolling] - The function to manage the disable scrolling
+ * @returns {JSX.Element}
+ */
 export class SearchPageComponent extends Component {
   constructor(props) {
     super(props);

@@ -69,6 +69,22 @@ const SEARCH_WITH_MAP_DEBOUNCE = 300; // Little bit of debounce before search is
 // With this offset we move the dropdown to the left a few pixels on desktop layout.
 const FILTER_DROPDOWN_OFFSET = -14;
 
+/**
+ * SearchPage component with map layout
+ *
+ * @param {Object} props
+ * @param {propTypes.uuid} [props.activeListingId] - The active listing ID
+ * @param {propTypes.currentUser} [props.currentUser] - The current user
+ * @param {Array<propTypes.listing>} [props.listings] - The listings
+ * @param {propTypes.pagination} [props.pagination] - The pagination
+ * @param {boolean} [props.scrollingDisabled] - Whether the scrolling is disabled
+ * @param {boolean} [props.searchInProgress] - Whether the search is in progress
+ * @param {propTypes.error} [props.searchListingsError] - The search listings error
+ * @param {Object} [props.searchParams] - The search params from the Redux state
+ * @param {Function} [props.onActivateListing] - The function to activate a listing
+ * @param {Function} [props.onManageDisableScrolling] - The function to manage the disable scrolling
+ * @returns {JSX.Element}
+ */
 export class SearchPageComponent extends Component {
   constructor(props) {
     super(props);
@@ -263,12 +279,8 @@ export class SearchPageComponent extends Component {
   render() {
     const {
       intl,
-<<<<<<< HEAD
       currentUser,
-      listings,
-=======
       listings = [],
->>>>>>> 5960d84b3 (containers/SearchPage (and its nested components): remove defaultProps (deprecated) and propTypes.)
       location,
       onManageDisableScrolling,
       onToggleFavorite,
@@ -611,7 +623,6 @@ export class SearchPageComponent extends Component {
   }
 }
 
-<<<<<<< HEAD
 SearchPageComponent.defaultProps = {
   listings: [],
   pagination: null,
@@ -650,7 +661,6 @@ SearchPageComponent.propTypes = {
   routeConfiguration: arrayOf(propTypes.route).isRequired,
 };
 
-=======
 /**
  * SearchPage component with map layout
  *
@@ -667,7 +677,6 @@ SearchPageComponent.propTypes = {
  * @param {Function} [props.onManageDisableScrolling] - The function to manage the disable scrolling
  * @returns {JSX.Element}
  */
->>>>>>> 5960d84b3 (containers/SearchPage (and its nested components): remove defaultProps (deprecated) and propTypes.)
 const EnhancedSearchPage = props => {
   const config = useConfiguration();
   const routeConfiguration = useRouteConfiguration();

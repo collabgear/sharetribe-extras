@@ -478,6 +478,7 @@ export const toggleFavorite = listingId => (dispatch, getState, sdk) => {
     return Promise.reject(new Error('Favorite listings for anonimous users are not supported'));
   }
 
+
   dispatch( toggleFavoriteRequest());
 
   const { favoriteListingIds = []} = currentUser?.attributes?.profile?.privateData || {};

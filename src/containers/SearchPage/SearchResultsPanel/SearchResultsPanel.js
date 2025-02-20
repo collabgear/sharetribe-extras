@@ -1,8 +1,5 @@
 import React from 'react';
-<<<<<<< HEAD
 import { array, bool, node, object, string, func, shape, arrayOf } from 'prop-types';
-=======
->>>>>>> 5960d84b3 (containers/SearchPage (and its nested components): remove defaultProps (deprecated) and propTypes.)
 import classNames from 'classnames';
 
 import { propTypes } from '../../../util/types';
@@ -29,23 +26,15 @@ const SearchResultsPanel = props => {
   const {
     className,
     rootClassName,
-<<<<<<< HEAD
     currentUser,
-    listings,
-    pagination,
-    search,
-    setActiveListing,
-    isMapVariant,
     history,
     routeConfiguration,
-    onToggleFavorite,
-=======
     listings = [],
     pagination,
     search,
     setActiveListing,
     isMapVariant = true,
->>>>>>> 5960d84b3 (containers/SearchPage (and its nested components): remove defaultProps (deprecated) and propTypes.)
+    onToggleFavorite,
   } = props;
   const classes = classNames(rootClassName || css.root, className);
 
@@ -107,7 +96,6 @@ const SearchResultsPanel = props => {
   );
 };
 
-<<<<<<< HEAD
 SearchResultsPanel.defaultProps = {
   children: null,
   className: null,
@@ -136,6 +124,4 @@ SearchResultsPanel.propTypes = {
   routeConfiguration: arrayOf(propTypes.route).isRequired,
 };
 
-=======
->>>>>>> 5960d84b3 (containers/SearchPage (and its nested components): remove defaultProps (deprecated) and propTypes.)
 export default SearchResultsPanel;
