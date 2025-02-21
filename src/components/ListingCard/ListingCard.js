@@ -20,9 +20,7 @@ import { AspectRatioWrapper, NamedLink, ResponsiveImage, IconHeart } from '../..
 import css from './ListingCard.module.css';
 
 import { FILL_TYPE_EMPTY, FILL_TYPE_FULL, SIZE_SMALL } from '../IconHeart/IconHeart';
-import omit from 'lodash/omit';
 import { createResourceLocatorString } from '../../util/routes';
-import { validUrlQueryParamsFromProps } from '../../containers/SearchPage/SearchPage.shared';
 
 const MIN_LENGTH_FOR_LONG_WORDS = 10;
 
@@ -135,7 +133,6 @@ export const ListingCardComponent = props => {
         .then( willSignIn => {
           if( willSignIn ){
             history.push(createResourceLocatorString('LoginPage', routeConfiguration, {}));
-
           }
         });
       }

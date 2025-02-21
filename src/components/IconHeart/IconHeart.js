@@ -22,8 +22,8 @@ const IconHeart = props => {
   return (
     <svg
       className={classes}
-      width={ isBig ? "50" : "30"}
-      height={ isBig ? "50" : "30"}
+      width={ isBig ? "40" : "30"}
+      height={ isBig ? "40" : "30"}
       viewBox={"0 0 24 24"}
       xmlns="http://www.w3.org/2000/svg"
     >

@@ -340,6 +340,7 @@ export const ListingPageComponent = props => {
             ) : null}
             <SectionGallery
               listing={currentListing}
+              currentUser={currentUser}
               variantPrefix={config.layout.listingImage.variantPrefix}
               history={history}
               routeConfiguration={routeConfiguration}

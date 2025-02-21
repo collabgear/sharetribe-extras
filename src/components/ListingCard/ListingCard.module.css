@@ -28,7 +28,7 @@
   position: absolute;
   right: 15px;
   top: 15px;
-  z-index: 100;
+  z-index: 2;
 }
 
 .rootForImage {
