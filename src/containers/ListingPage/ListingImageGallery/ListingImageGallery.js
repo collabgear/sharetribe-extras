@@ -136,6 +136,7 @@ const ListingImageGallery = props => {
       return warnMaxFavorites();
     }
 
+  const toggleFavorite = listingId => {
     if( onToggleFavorite ){
       if( currentUser ) {
         onToggleFavorite( listingId );
