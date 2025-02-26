@@ -7,10 +7,12 @@ many years of experience working on marketplace implementations using Sharetribe
 **Features added on top of the standard Sharetribe Web Template**
 
 - Password Confirmation Field added to the singup page
+- Wishlist
+
+You can try out a live demo with the above features at the test site: http://sharetribe-flex-extras.collabgear.work:3210/ .
 
 **Roadmap**
 
-- Wishlist
 - LinkedIn social signin and signup
 - Apple social signin and signup
 - Google Pay integration
