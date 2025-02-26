@@ -85,6 +85,10 @@ const SectionHero = props => {
   };
 
   const toggleFavorite = listingId => {
+    if( favoriteListingIds.length >= config.maxFavoritesAmount && !isFavorite ){
+      return warnMaxFavorites();
+    }
+
     if( onToggleFavorite ){
       if( currentUser ) {
         onToggleFavorite( listingId );
