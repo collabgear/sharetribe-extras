@@ -9,10 +9,14 @@ You can find the live demo of this version at http://sharetribe-flex-extras.coll
 **Features added on top of the standard Sharetribe Web Template**
 
 - Password Confirmation Field added to the singup page
+- Wishlist
+
+You can try out a live demo with the above features at the test site: http://sharetribe-flex-extras.collabgear.work:3210/ .
 
 **Roadmap**
 
-- Wishlist
+- Referral system with referrals/referees listed on user profile, referral code generation, referral link and referral QR code sharing
+- Percentage discounts/coupons managed by providers
 - Contact Us form
 - LinkedIn social signin and signup
 - Apple social signin and signup
@@ -22,10 +26,8 @@ You can find the live demo of this version at http://sharetribe-flex-extras.coll
 - Bookings export to Google Calendar
 - Admin interface as part of the web template
 - Control the visibility of the static pages for the anonimous and signed-in users
-- Referral system with referrals/referees listed on user profile, referral code generation, referral link and referral QR code sharing
 - Bulk upload of new listings/products by the user
 - System wide bulk upload of new listings/products by the administrator
-- Percentage discounts/coupons managed by providers
 - Featured listings managed by admin
 - Recommended listings managed by admin
 - List view for the search results page

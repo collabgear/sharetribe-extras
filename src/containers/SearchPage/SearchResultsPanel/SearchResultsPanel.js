@@ -1,21 +1,26 @@
 import React from 'react';
-import { array, bool, node, object, string } from 'prop-types';
+import { array, bool, node, object, string, func, shape, arrayOf } from 'prop-types';
 import classNames from 'classnames';
 
 import { propTypes } from '../../../util/types';
 import { ListingCard, PaginationLinks } from '../../../components';
 
 import css from './SearchResultsPanel.module.css';
+import { intlShape } from '../../../util/reactIntl';
 
 const SearchResultsPanel = props => {
   const {
     className,
     rootClassName,
+    currentUser,
     listings,
     pagination,
     search,
     setActiveListing,
     isMapVariant,
+    history,
+    routeConfiguration,
+    onToggleFavorite,
   } = props;
   const classes = classNames(rootClassName || css.root, className);
 
@@ -60,10 +65,14 @@ const SearchResultsPanel = props => {
         {listings.map(l => (
           <ListingCard
             className={css.listingCard}
+            history={history}
+            routeConfiguration={routeConfiguration}
+            currentUser={currentUser}
             key={l.id.uuid}
             listing={l}
             renderSizes={cardRenderSizes(isMapVariant)}
             setActiveListing={setActiveListing}
+            onToggleFavorite={onToggleFavorite}
           />
         ))}
         {props.children}
@@ -91,6 +100,14 @@ SearchResultsPanel.propTypes = {
   rootClassName: string,
   search: object,
   isMapVariant: bool,
+  onToggleFavorite: func.isRequired,
+
+  // from useHistory
+  history: shape({
+    push: func.isRequired,
+  }).isRequired,
+  // from useRouteConfiguration
+  routeConfiguration: arrayOf(propTypes.route).isRequired,
 };
 
 export default SearchResultsPanel;

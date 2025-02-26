@@ -185,11 +185,11 @@
   }
 
   @media (--viewportMedium) {
-    margin: 24px 0 0 0;
+    margin: 24px 35px 0 0;
   }
 
   &.CTAEnabled {
-    margin: 24px 0 0 0;
+    margin: 24px 35px 0 0;
   }
 }
 
@@ -405,6 +405,17 @@
 
   @media (--viewportMedium) {
     display: flex;
+  }
+}
+
+.heartIconWrapper {
+  position: absolute;
+  right: 20px;
+  top: 30px;
+  z-index: 2;
+
+  &:hover {
+    cursor: pointer;
   }
 }
 

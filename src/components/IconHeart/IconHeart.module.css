@@ -1,0 +1,17 @@
+.rootEmpty {
+  stroke: var( --colorRed );
+  fill: rgba( 0, 0, 0, 0 );
+
+  &:hover {
+    fill: rgba( 255, 0, 0, 0.25 );
+  }
+}
+
+.rootFull {
+  stroke: var( --colorRed );
+  fill: var( --colorRed );
+
+  &:hover {
+     fill: rgba( 255, 0, 0, 0.75 );
+  }
+}

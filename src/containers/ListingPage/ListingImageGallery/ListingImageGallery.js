@@ -2,16 +2,20 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import ReactImageGallery from 'react-image-gallery';
+import swal from 'sweetalert';
 
 import { propTypes } from '../../../util/types';
 import { FormattedMessage, injectIntl, intlShape } from '../../../util/reactIntl';
+import { useConfiguration } from '../../../context/configurationContext';
 import {
   AspectRatioWrapper,
   Button,
   IconClose,
   IconArrowHead,
   ResponsiveImage,
+  IconHeart,
 } from '../../../components';
+import { createResourceLocatorString } from '../../../util/routes';
 
 // Copied directly from
 // `node_modules/react-image-gallery/styles/css/image-gallery.css`. The
@@ -20,6 +24,8 @@ import {
 import './image-gallery.css';
 
 import css from './ListingImageGallery.module.css';
+
+import { FILL_TYPE_EMPTY, FILL_TYPE_FULL, SIZE_BIG } from '../../../components/IconHeart/IconHeart';
 
 const IMAGE_GALLERY_OPTIONS = {
   showPlayButton: false,
@@ -52,7 +58,13 @@ const getFirstImageAspectRatio = (firstImage, scaledVariant) => {
 
 const ListingImageGallery = props => {
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const { intl, rootClassName, className, images, imageVariants, thumbnailVariants } = props;
+  const config = useConfiguration();
+  const {
+    intl, rootClassName, className, images, imageVariants, thumbnailVariants,
+    listing, currentUser, history, routeConfiguration, onToggleFavorite,
+  } = props;
+  const { favoriteListingIds = []} = currentUser?.attributes?.profile?.privateData || {};
+  const isFavorite = favoriteListingIds.includes( listing.id.uuid );
   const thumbVariants = thumbnailVariants || imageVariants;
   // imageVariants are scaled variants.
   const { aspectWidth, aspectHeight } = getFirstImageAspectRatio(images?.[0], imageVariants[0]);
@@ -76,23 +88,95 @@ const ListingImageGallery = props => {
   const imageSizesMaybe = isFullscreen
     ? {}
     : { sizes: `(max-width: 1024px) 100vw, (max-width: 1200px) calc(100vw - 192px), 708px` };
+
+  const confirmSignIn = () => {
+    return swal({
+      title: intl.formatMessage({ id: "ListingPage.favoriteSignInTitle" }),
+      text: intl.formatMessage({ id: "ListingPage.favoriteSignInText" }),
+      icon: "info",
+      buttons: [
+        intl.formatMessage({ id: "ListingPage.favoriteSignInCancelButton" }),
+        intl.formatMessage({ id: "ListingPage.favoriteSignInOkButton" }),
+      ],
+      closeOnClickOutside: true,
+      closeOnEsc: true,
+    });
+  };
+
+  const warnMaxFavorites = () => {
+    return swal({
+      title: intl.formatMessage({ id: "ListingPage.maxFavoritesWarningTitle"}),
+      text: intl.formatMessage(
+        { id: "ListingPage.maxFavoritesWarningText"},
+        { maxFavoritesAmount: config.maxFavoritesAmount }
+      ),
+      icon: "warning",
+      buttons: {
+        close: intl.formatMessage({ id: "ListingPage.maxFavoritesWarningButton" }),
+      },
+      closeOnClickOutside: true,
+      closeOnEsc: true,
+    });
+  };
+
+  const toggleFavorite = listingId => {
+    if( favoriteListingIds.length >= config.maxFavoritesAmount && !isFavorite ){
+      return warnMaxFavorites();
+    }
+
+    if( onToggleFavorite ){
+      if( currentUser ) {
+        onToggleFavorite( listingId );
+      } else {
+        confirmSignIn.then( willSignIn => {
+          if( willSignIn ){
+            history.push(createResourceLocatorString('LoginPage', routeConfiguration, {}));
+          }
+        });
+      }
+    }
+  };
+
+  const favoritesMark = (
+    <div
+      title={ intl.formatMessage({
+        id: isFavorite ? "ListingPage.removeFromFavoritesHint" : "ListingPage.addToFavoritesHint"
+      })}
+      className={css.heartIconWrapper}
+      onClick={ event => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        toggleFavorite( listing.id.uuid );
+      }}
+    >
+      <IconHeart
+        fillType={ isFavorite ? FILL_TYPE_FULL : FILL_TYPE_EMPTY }
+        size={SIZE_BIG}
+      />
+    </div>
+  );
+
   const renderItem = item => {
     return (
-      <AspectRatioWrapper
-        width={aspectWidth || 1}
-        height={aspectHeight || 1}
-        className={isFullscreen ? css.itemWrapperFullscreen : css.itemWrapper}
-      >
-        <div className={css.itemCentering}>
-          <ResponsiveImage
-            rootClassName={css.item}
-            image={item.image}
-            alt={item.alt}
-            variants={imageVariants}
-            {...imageSizesMaybe}
-          />
-        </div>
-      </AspectRatioWrapper>
+      <>
+        {favoritesMark}
+        <AspectRatioWrapper
+          width={aspectWidth || 1}
+          height={aspectHeight || 1}
+          className={isFullscreen ? css.itemWrapperFullscreen : css.itemWrapper}
+        >
+          <div className={css.itemCentering}>
+            <ResponsiveImage
+              rootClassName={css.item}
+              image={item.image}
+              alt={item.alt}
+              variants={imageVariants}
+              {...imageSizesMaybe}
+            />
+          </div>
+        </AspectRatioWrapper>
+      </>
     );
   };
   const renderThumbInner = item => {
@@ -160,17 +244,19 @@ const ListingImageGallery = props => {
   const classes = classNames(rootClassName || css.root, className);
 
   return (
-    <ReactImageGallery
-      additionalClass={classes}
-      items={items}
-      renderItem={renderItem}
-      renderThumbInner={renderThumbInner}
-      onScreenChange={onScreenChange}
-      renderLeftNav={renderLeftNav}
-      renderRightNav={renderRightNav}
-      renderFullscreenButton={renderFullscreenButton}
-      {...IMAGE_GALLERY_OPTIONS}
-    />
+    <>
+      <ReactImageGallery
+        additionalClass={classes}
+        items={items}
+        renderItem={renderItem}
+        renderThumbInner={renderThumbInner}
+        onScreenChange={onScreenChange}
+        renderLeftNav={renderLeftNav}
+        renderRightNav={renderRightNav}
+        renderFullscreenButton={renderFullscreenButton}
+        {...IMAGE_GALLERY_OPTIONS}
+      />
+    </>
   );
 };
 
@@ -180,17 +266,28 @@ ListingImageGallery.defaultProps = {
   thumbnailVariants: null,
 };
 
-const { string, arrayOf } = PropTypes;
+const { string, arrayOf, oneOfType, shape, func } = PropTypes;
 
 ListingImageGallery.propTypes = {
   rootClassName: string,
   className: string,
+  listing: oneOfType([propTypes.listing, propTypes.ownListing]).isRequired,
+  currentUser: propTypes.currentUser,
   images: arrayOf(propTypes.image).isRequired,
   imageVariants: arrayOf(string).isRequired,
   thumbnailVariants: arrayOf(string),
 
   // from injectIntl
   intl: intlShape.isRequired,
+
+  onToggleFavorite: func.isRequired,
+
+  // from useHistory
+  history: shape({
+    push: func.isRequired,
+  }).isRequired,
+  // from useRouteConfiguration
+  routeConfiguration: arrayOf(propTypes.route).isRequired,
 };
 
 export default injectIntl(ListingImageGallery);

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { bool, arrayOf, oneOfType } from 'prop-types';
+import { bool, shape, func, arrayOf, oneOfType } from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import classNames from 'classnames';
 
 import { useConfiguration } from '../../context/configurationContext';
-import { FormattedMessage, useIntl } from '../../util/reactIntl';
+import { useRouteConfiguration } from '../../context/routeConfigurationContext';
+import { FormattedMessage, intlShape, useIntl } from '../../util/reactIntl';
 import {
   REVIEW_TYPE_OF_PROVIDER,
   REVIEW_TYPE_OF_CUSTOMER,
@@ -29,8 +31,9 @@ import { pickCustomFieldProps } from '../../util/fieldHelpers';
 import { hasPermissionToViewData, isUserAuthorized } from '../../util/userHelpers';
 import { richText } from '../../util/richText';
 
-import { isScrollingDisabled } from '../../ducks/ui.duck';
+import { isScrollingDisabled, manageDisableScrolling } from '../../ducks/ui.duck';
 import { getMarketplaceEntities } from '../../ducks/marketplaceData.duck';
+import { toggleFavorite } from '../../ducks/user.duck';
 import {
   Heading,
   H2,
@@ -54,6 +57,7 @@ import SectionDetailsMaybe from './SectionDetailsMaybe';
 import SectionTextMaybe from './SectionTextMaybe';
 import SectionMultiEnumMaybe from './SectionMultiEnumMaybe';
 import SectionYoutubeVideoMaybe from './SectionYoutubeVideoMaybe';
+import { setActiveListing } from '../SearchPage/SearchPage.duck';
 
 const MAX_MOBILE_SCREEN_WIDTH = 768;
 const MIN_LENGTH_FOR_LONG_WORDS = 20;
@@ -207,6 +211,10 @@ export const MainContent = props => {
     userFieldConfig,
     intl,
     hideReviews,
+    currentUser,
+    onToggleFavorite,
+    routeConfiguration,
+    history,
   } = props;
 
   const hasListings = listings.length > 0;
@@ -257,7 +265,14 @@ export const MainContent = props => {
           <ul className={css.listings}>
             {listings.map(l => (
               <li className={css.listing} key={l.id.uuid}>
-                <ListingCard listing={l} showAuthorInfo={false} />
+                <ListingCard
+                  listing={l}
+                  showAuthorInfo={false}
+                  currentUser={currentUser}
+                  onToggleFavorite={onToggleFavorite}
+                  routeConfiguration={routeConfiguration}
+                  history={history}
+                />
               </li>
             ))}
           </ul>
@@ -276,6 +291,8 @@ export const ProfilePageComponent = props => {
   const config = useConfiguration();
   const intl = useIntl();
   const [mounted, setMounted] = useState(false);
+  const routeConfiguration = useRouteConfiguration();
+  const history = useHistory();
 
   useEffect(() => {
     setMounted(true);
@@ -390,6 +407,7 @@ export const ProfilePageComponent = props => {
         footer={<FooterContainer />}
       >
         <MainContent
+          currentUser={currentUser}
           bio={bio}
           displayName={displayName}
           userShowError={userShowError}
@@ -398,6 +416,8 @@ export const ProfilePageComponent = props => {
           userFieldConfig={userFields}
           hideReviews={hasNoViewingRightsOnPrivateMarketplace}
           intl={intl}
+          routeConfiguration={routeConfiguration}
+          history={history}
           {...rest}
         />
       </LayoutSideNavigation>
@@ -424,6 +444,13 @@ ProfilePageComponent.propTypes = {
   listings: arrayOf(oneOfType([propTypes.listing, propTypes.ownListing])).isRequired,
   reviews: arrayOf(propTypes.review),
   queryReviewsError: propTypes.error,
+
+  // from useHistory
+  history: shape({
+    push: func.isRequired,
+  }).isRequired,
+  // from useRouteConfiguration
+  routeConfiguration: arrayOf(propTypes.route).isRequired,
 };
 
 const mapStateToProps = state => {
@@ -457,6 +484,15 @@ const mapStateToProps = state => {
   };
 };
 
-const ProfilePage = compose(connect(mapStateToProps))(ProfilePageComponent);
+const mapDispatchToProps = dispatch => ({
+  onToggleFavorite: listingId => dispatch( toggleFavorite( listingId )),
+});
+
+const ProfilePage = compose(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
+)(ProfilePageComponent);
 
 export default ProfilePage;

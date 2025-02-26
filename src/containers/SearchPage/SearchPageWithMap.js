@@ -32,6 +32,7 @@ import {
 import { hasPermissionToViewData, isUserAuthorized } from '../../util/userHelpers';
 import { getListingsById } from '../../ducks/marketplaceData.duck';
 import { manageDisableScrolling, isScrollingDisabled } from '../../ducks/ui.duck';
+import { toggleFavorite } from '../../ducks/user.duck';
 
 import { H3, H5, ModalInMobile, NamedRedirect, Page } from '../../components';
 import TopbarContainer from '../../containers/TopbarContainer/TopbarContainer';
@@ -258,9 +259,11 @@ export class SearchPageComponent extends Component {
   render() {
     const {
       intl,
+      currentUser,
       listings,
       location,
       onManageDisableScrolling,
+      onToggleFavorite,
       pagination,
       scrollingDisabled,
       searchInProgress,
@@ -268,6 +271,7 @@ export class SearchPageComponent extends Component {
       searchParams,
       activeListingId,
       onActivateListing,
+      history,
       routeConfiguration,
       config,
     } = this.props;
@@ -552,6 +556,10 @@ export class SearchPageComponent extends Component {
                 ) : null}
                 <SearchResultsPanel
                   className={css.searchListingsPanel}
+                  currentUser={currentUser}
+                  history={history}
+                  routeConfiguration={routeConfiguration}
+                  onToggleFavorite={onToggleFavorite}
                   listings={listings}
                   pagination={listingsAreLoaded ? pagination : null}
                   search={parse(location.search)}
@@ -605,6 +613,7 @@ SearchPageComponent.defaultProps = {
 SearchPageComponent.propTypes = {
   listings: array,
   onActivateListing: func.isRequired,
+  onToggleFavorite: func.isRequired,
   onManageDisableScrolling: func.isRequired,
   pagination: propTypes.pagination,
   scrollingDisabled: bool.isRequired,
@@ -679,6 +688,7 @@ const EnhancedSearchPage = props => {
       intl={intl}
       history={history}
       location={location}
+      currentUser={currentUser}
       {...restOfProps}
     />
   );
@@ -712,6 +722,7 @@ const mapDispatchToProps = dispatch => ({
   onManageDisableScrolling: (componentId, disableScrolling) =>
     dispatch(manageDisableScrolling(componentId, disableScrolling)),
   onActivateListing: listingId => dispatch(setActiveListing(listingId)),
+  onToggleFavorite: listingId => dispatch( toggleFavorite( listingId )),
 });
 
 // Note: it is important that the withRouter HOC is **outside** the

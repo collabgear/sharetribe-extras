@@ -118,6 +118,17 @@
   border-radius: var(--borderRadiusMedium);
 }
 
+.heartIconWrapper {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  z-index: 2;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 .navLeft,
 .navRight {
   position: absolute;
