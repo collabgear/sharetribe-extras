@@ -4,6 +4,7 @@ import swal from 'sweetalert';
 import { FormattedMessage, useIntl } from '../../util/reactIntl';
 import { ResponsiveImage, Modal, IconHeart } from '../../components';
 import { createResourceLocatorString } from '../../util/routes';
+import { useConfiguration } from '../../context/configurationContext';
 
 import ImageCarousel from './ImageCarousel/ImageCarousel';
 import ActionBarMaybe from './ActionBarMaybe';
@@ -14,6 +15,7 @@ import { FILL_TYPE_EMPTY, FILL_TYPE_FULL, SIZE_BIG } from '../../components/Icon
 
 const SectionHero = props => {
   const intl = useIntl();
+  const config = useConfiguration();
   const {
     title,
     listing,
@@ -47,27 +49,50 @@ const SectionHero = props => {
     </button>
   ) : null;
 
+  const confirmSignIn = () => {
+    return swal({
+      title: intl.formatMessage({ id: "ListingPage.favoriteSignInTitle" }),
+      text: intl.formatMessage({ id: "ListingPage.favoriteSignInText" }),
+      icon: "info",
+      buttons: [
+        intl.formatMessage({ id: "ListingPage.favoriteSignInCancelButton" }),
+        intl.formatMessage({ id: "ListingPage.favoriteSignInOkButton" }),
+      ],
+      closeOnClickOutside: true,
+      closeOnEsc: true,
+    });
+  };
+
+  const warnMaxFavorites = () => {
+    return swal({
+      title: intl.formatMessage({ id: "ListingPage.maxFavoritesWarningTitle"}),
+      text: intl.formatMessage(
+        { id: "ListingPage.maxFavoritesWarningText"},
+        { maxFavoritesAmount: config.maxFavoritesAmount }
+      ),
+      icon: "warning",
+      buttons: {
+        close: intl.formatMessage({ id: "ListingPage.maxFavoritesWarningButton" }),
+      },
+      closeOnClickOutside: true,
+      closeOnEsc: true,
+    });
+  };
+
   const toggleFavorite = listingId => {
+    if( favoriteListingIds.length >= config.maxFavoritesAmount && !isFavorite ){
+      return warnMaxFavorites();
+    }
+
     if( onToggleFavorite ){
       if( currentUser ) {
         onToggleFavorite( listingId );
       } else {
-        swal({
-          title: intl.formatMessage({ id: "ListingPage.favoriteSignInTitle"}),
-          text: intl.formatMessage({ id: "ListingPage.favoriteSignInText"}),
-          icon: "info",
-          buttons: [
-            intl.formatMessage({ id: "ListingPage.favoriteSignInCancelButton"}),
-            intl.formatMessage({ id: "ListingPage.favoriteSignInOkButton"}),
-          ],
-          closeOnClickOutside: true,
-          closeOnEsc: true,
-        })
-          .then( willSignIn => {
-            if( willSignIn ){
-              history.push(createResourceLocatorString('LoginPage', routeConfiguration, {}));
-            }
-          });
+        confirmSignIn.then( willSignIn => {
+          if( willSignIn ){
+            history.push(createResourceLocatorString('LoginPage', routeConfiguration, {}));
+          }
+        });
       }
     }
   };

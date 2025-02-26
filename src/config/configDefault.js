@@ -138,6 +138,9 @@ const defaultConfig = {
     postalCode: null, // '00130',
     streetAddress: null, // 'Erottajankatu 19 B',
   },
+
+  // Maximum number of favorite listings the user can store and manage
+  maxFavoritesAmount: 100, // This amount must be 100 or less due to the limitations of the Sharetribe query listings API
 };
 
 export default defaultConfig;

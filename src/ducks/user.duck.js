@@ -472,13 +472,13 @@ export const sendVerificationEmail = () => (dispatch, getState, sdk) => {
 };
 
 export const toggleFavorite = listingId => (dispatch, getState, sdk) => {
-  dispatch( toggleFavoriteRequest());
-
   const { currentUser } = getState().user;
 
   if (!currentUser) {
     return Promise.reject(new Error('Favorite listings for anonimous users are not supported'));
   }
+
+  dispatch( toggleFavoriteRequest());
 
   const { favoriteListingIds = []} = currentUser?.attributes?.profile?.privateData || {};
   const listingIndex = favoriteListingIds.indexOf( listingId );

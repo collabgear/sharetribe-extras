@@ -6,6 +6,7 @@ import swal from 'sweetalert';
 
 import { propTypes } from '../../../util/types';
 import { FormattedMessage, injectIntl, intlShape } from '../../../util/reactIntl';
+import { useConfiguration } from '../../../context/configurationContext';
 import {
   AspectRatioWrapper,
   Button,
@@ -57,6 +58,7 @@ const getFirstImageAspectRatio = (firstImage, scaledVariant) => {
 
 const ListingImageGallery = props => {
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const config = useConfiguration();
   const {
     intl, rootClassName, className, images, imageVariants, thumbnailVariants,
     listing, currentUser, history, routeConfiguration, onToggleFavorite,
@@ -87,27 +89,50 @@ const ListingImageGallery = props => {
     ? {}
     : { sizes: `(max-width: 1024px) 100vw, (max-width: 1200px) calc(100vw - 192px), 708px` };
 
+  const confirmSignIn = () => {
+    return swal({
+      title: intl.formatMessage({ id: "ListingPage.favoriteSignInTitle" }),
+      text: intl.formatMessage({ id: "ListingPage.favoriteSignInText" }),
+      icon: "info",
+      buttons: [
+        intl.formatMessage({ id: "ListingPage.favoriteSignInCancelButton" }),
+        intl.formatMessage({ id: "ListingPage.favoriteSignInOkButton" }),
+      ],
+      closeOnClickOutside: true,
+      closeOnEsc: true,
+    });
+  };
+
+  const warnMaxFavorites = () => {
+    return swal({
+      title: intl.formatMessage({ id: "ListingPage.maxFavoritesWarningTitle"}),
+      text: intl.formatMessage(
+        { id: "ListingPage.maxFavoritesWarningText"},
+        { maxFavoritesAmount: config.maxFavoritesAmount }
+      ),
+      icon: "warning",
+      buttons: {
+        close: intl.formatMessage({ id: "ListingPage.maxFavoritesWarningButton" }),
+      },
+      closeOnClickOutside: true,
+      closeOnEsc: true,
+    });
+  };
+
   const toggleFavorite = listingId => {
+    if( favoriteListingIds.length >= config.maxFavoritesAmount && !isFavorite ){
+      return warnMaxFavorites();
+    }
+
     if( onToggleFavorite ){
       if( currentUser ) {
         onToggleFavorite( listingId );
       } else {
-        swal({
-          title: intl.formatMessage({ id: "ListingPage.favoriteSignInTitle"}),
-          text: intl.formatMessage({ id: "ListingPage.favoriteSignInText"}),
-          icon: "info",
-          buttons: [
-            intl.formatMessage({ id: "ListingPage.favoriteSignInCancelButton"}),
-            intl.formatMessage({ id: "ListingPage.favoriteSignInOkButton"}),
-          ],
-          closeOnClickOutside: true,
-          closeOnEsc: true,
-        })
-          .then( willSignIn => {
-            if( willSignIn ){
-              history.push(createResourceLocatorString('LoginPage', routeConfiguration, {}));
-            }
-          });
+        confirmSignIn.then( willSignIn => {
+          if( willSignIn ){
+            history.push(createResourceLocatorString('LoginPage', routeConfiguration, {}));
+          }
+        });
       }
     }
   };
