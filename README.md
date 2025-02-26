@@ -4,6 +4,8 @@ This repository is the fork from the official Sharetribe Web Template created by
 development agency is dedicated to introduce the commonly requested features according to our 
 many years of experience working on marketplace implementations using Sharetribe API and Web Template.
 
+You can find the live demo of this version at http://sharetribe-flex-extras.collabgear.work:3210/
+
 **Features added on top of the standard Sharetribe Web Template**
 
 - Password Confirmation Field added to the singup page
@@ -13,6 +15,9 @@ You can try out a live demo with the above features at the test site: http://sha
 
 **Roadmap**
 
+- Referral system with referrals/referees listed on user profile, referral code generation, referral link and referral QR code sharing
+- Percentage discounts/coupons managed by providers
+- Contact Us form
 - LinkedIn social signin and signup
 - Apple social signin and signup
 - Google Pay integration
@@ -20,15 +25,22 @@ You can try out a live demo with the above features at the test site: http://sha
 - Calendar view page for aggregated bookings grid view ( similar to Google Calendar )
 - Bookings export to Google Calendar
 - Admin interface as part of the web template
-- Referral system with referrals/referees listed on user profile, referral code generation, referral link and referral QR code sharing
+- Control the visibility of the static pages for the anonimous and signed-in users
 - Bulk upload of new listings/products by the user
 - System wide bulk upload of new listings/products by the administrator
+- Featured listings managed by admin
+- Recommended listings managed by admin
 - List view for the search results page
 - SEO friendly URL scheme for the search results page
 - Separate category pages
+- Topbar mega-menu with full categories tree
+- Membership subscription using direct Stripe Subscriptions integration
 - Anonimous checkout
 - Shopping cart
 - Abandoned cart
+
+If you need help with integrating the above features into your project, or any other custom features implementation - 
+we are open for hire and collaboration. Feel free to contact us at info@collabgear.com . 
 
 **Note**: Below are the setup and configuration instructions from the original Sharetribe
 Web Template repository.
