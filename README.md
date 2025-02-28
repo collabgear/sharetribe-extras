@@ -23,7 +23,6 @@ Also be sure to set the following environment variables ( used for referral syst
 - SERVER_APP_INTEGRATION_SDK_CLIENT_ID ( Integration API client ID )
 - SERVER_APP_INTEGRATION_SDK_CLIENT_SECRET ( Integration API client secret )
 
-You can try out a live demo with the above features at the test site: http://sharetribe-flex-extras.collabgear.work:3210/ .
 
 **Roadmap**
 
