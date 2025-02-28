@@ -19,6 +19,9 @@ commands to index the proper fields within the user profile:
 flex-cli search set --marketplace=<marketplace-name> --doc="The current user own referral Id" --schema-for=userProfile --key=referralOwnId --scope=public --type=enum
 flex-cli search set --marketplace=<marketplace-name> --doc="Referral Id of the user who invited the current user to the platform" --schema-for=userProfile --key=referralId --scope=public --type=enum
 ```
+Also be sure to set the following environment variables ( used for referral system API backend ):
+- SERVER_APP_INTEGRATION_SDK_CLIENT_ID ( Integration API client ID )
+- SERVER_APP_INTEGRATION_SDK_CLIENT_SECRET ( Integration API client secret )
 
 You can try out a live demo with the above features at the test site: http://sharetribe-flex-extras.collabgear.work:3210/ .
 
