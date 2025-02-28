@@ -1,7 +1,7 @@
 # CollabGear upgrades for Sharetribe Web Template
 
-This repository is the fork from the official Sharetribe Web Template created by CollabGear 
-development agency is dedicated to introduce the commonly requested features according to our 
+This repository is the fork from the official Sharetribe Web Template created by CollabGear
+development agency is dedicated to introduce the commonly requested features according to our
 many years of experience working on marketplace implementations using Sharetribe API and Web Template.
 
 You can find the live demo of this version at http://sharetribe-flex-extras.collabgear.work:3210/
@@ -10,12 +10,20 @@ You can find the live demo of this version at http://sharetribe-flex-extras.coll
 
 - Password Confirmation Field added to the singup page
 - Wishlist
+- Referral system with referrals/referees listed on user profile, referral code generation, referral link and referral QR code sharing
+
+**Note**: In order for the referral system to work correctly you need to run the following flex-cli
+commands to index the proper fields within the user profile:
+
+```sh
+flex-cli search set --marketplace=<marketplace-name> --doc="The current user own referral Id" --schema-for=userProfile --key=referralOwnId --scope=public --type=enum
+flex-cli search set --marketplace=<marketplace-name> --doc="Referral Id of the user who invited the current user to the platform" --schema-for=userProfile --key=referralId --scope=public --type=enum
+```
 
 You can try out a live demo with the above features at the test site: http://sharetribe-flex-extras.collabgear.work:3210/ .
 
 **Roadmap**
 
-- Referral system with referrals/referees listed on user profile, referral code generation, referral link and referral QR code sharing
 - Percentage discounts/coupons managed by providers
 - Contact Us form
 - LinkedIn social signin and signup
@@ -39,8 +47,8 @@ You can try out a live demo with the above features at the test site: http://sha
 - Shopping cart
 - Abandoned cart
 
-If you need help with integrating the above features into your project, or any other custom features implementation - 
-we are open for hire and collaboration. Feel free to contact us at info@collabgear.com . 
+If you need help with integrating the above features into your project, or any other custom features implementation -
+we are open for hire and collaboration. Feel free to contact us at info@collabgear.com .
 
 **Note**: Below are the setup and configuration instructions from the original Sharetribe
 Web Template repository.

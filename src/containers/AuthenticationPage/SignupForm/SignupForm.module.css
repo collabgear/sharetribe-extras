@@ -44,6 +44,10 @@
   composes: marketplaceModalPasswordMargins from global;
 }
 
+.referralId {
+  composes: marketplaceModalPasswordMargins from global;
+}
+
 .bottomWrapper {
   composes: marketplaceModalBottomWrapper from global;
 }

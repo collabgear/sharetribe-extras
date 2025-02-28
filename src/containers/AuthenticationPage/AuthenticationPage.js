@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { bool, func, object, oneOf, shape } from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { withRouter, Redirect } from 'react-router-dom';
+import { withRouter, Redirect, useLocation } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import classNames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
@@ -19,7 +19,7 @@ import {
   isSignupEmailTakenError,
   isTooManyEmailVerificationRequestsError,
 } from '../../util/errors';
-import { pickUserFieldsData, addScopePrefix } from '../../util/userHelpers';
+import { pickUserFieldsData, addScopePrefix, generateReferralId } from '../../util/userHelpers';
 
 import { login, authenticationInProgress, signup, signupWithIdp } from '../../ducks/auth.duck';
 import { isScrollingDisabled, manageDisableScrolling } from '../../ducks/ui.duck';
@@ -57,6 +57,7 @@ import { TOS_ASSET_NAME, PRIVACY_POLICY_ASSET_NAME } from './AuthenticationPage.
 
 import css from './AuthenticationPage.module.css';
 import { FacebookLogo, GoogleLogo } from './socialLoginLogos';
+import { parse } from '../../util/urlHelpers';
 
 // Social login buttons are needed by AuthenticationForms
 export const SocialLoginButtonsMaybe = props => {
@@ -168,6 +169,9 @@ export const AuthenticationForms = props => {
   const { userFields, userTypes = [] } = config.user;
   const preselectedUserType = userTypes.find(conf => conf.userType === userType)?.userType || null;
 
+  const location = useLocation();
+  const { referralId } = parse( location.search );
+
   const fromMaybe = from ? { from } : null;
   const signupRouteName = !!preselectedUserType ? 'SignupForUserTypePage' : 'SignupPage';
   const userTypeMaybe = preselectedUserType ? { userType: preselectedUserType } : null;
@@ -200,8 +204,12 @@ export const AuthenticationForms = props => {
     },
   ];
 
+  // TODO: implement the referrals tracking for social signup too
+
   const handleSubmitSignup = values => {
-    const { userType, email, password, fname, lname, displayName, ...rest } = values;
+    /* eslint-disable no-unused-vars */
+    const { userType, email, password, passwordConfirmation, fname, lname,
+            displayName, referralId, ...rest } = values;
     const displayNameMaybe = displayName ? { displayName: displayName.trim() } : {};
 
     const params = {
@@ -212,6 +220,8 @@ export const AuthenticationForms = props => {
       ...displayNameMaybe,
       publicData: {
         userType,
+        referralOwnId: generateReferralId(),
+        referralId,
         ...pickUserFieldsData(rest, 'public', userType, userFields),
       },
       privateData: {
@@ -257,6 +267,8 @@ export const AuthenticationForms = props => {
       ? signupErrorMessage
       : null;
 
+  // TODO: implement the referral ID check at the time of signup
+
   return (
     <div className={css.content}>
       <LinkTabNavHorizontal className={css.tabs} tabs={tabs} />
@@ -273,6 +285,7 @@ export const AuthenticationForms = props => {
           preselectedUserType={preselectedUserType}
           userTypes={userTypes}
           userFields={userFields}
+          referralId={referralId}
         />
       )}
 
