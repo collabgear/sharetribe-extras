@@ -23,6 +23,7 @@ Also be sure to set the following environment variables ( used for referral syst
 - SERVER_APP_INTEGRATION_SDK_CLIENT_ID ( Integration API client ID )
 - SERVER_APP_INTEGRATION_SDK_CLIENT_SECRET ( Integration API client secret )
 
+You can try out a live demo with the above features at the test site: http://sharetribe-flex-extras.collabgear.work:3210/ .
 
 **Roadmap**
 
@@ -50,7 +51,7 @@ Also be sure to set the following environment variables ( used for referral syst
 - Abandoned cart
 
 If you need help with integrating the above features into your project, or any other custom features implementation -
-we are open for hire and collaboration. Feel free to contact us at info@collabgear.com .
+feel free to contact us at info@collabgear.com .
 
 **Note**: Below are the setup and configuration instructions from the original Sharetribe
 Web Template repository.

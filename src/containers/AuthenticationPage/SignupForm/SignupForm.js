@@ -290,9 +290,6 @@ SignupFormComponent.propTypes = {
   intl: intlShape.isRequired,
 };
 
-const SignupForm = compose(injectIntl)(SignupFormComponent);
-SignupForm.displayName = 'SignupForm';
-
 /**
  * A component that renders the signup form.
  *
@@ -312,3 +309,32 @@ const SignupForm = props => {
   const intl = useIntl();
   return <SignupFormComponent {...props} intl={intl} />;
 };
+
+SignupFormComponent.defaultProps = {
+  rootClassName: null,
+  className: null,
+  formId: null,
+  inProgress: false,
+  preselectedUserType: null,
+  referralId: null,
+};
+
+SignupFormComponent.propTypes = {
+  rootClassName: string,
+  className: string,
+  formId: string,
+  inProgress: bool,
+  termsAndConditions: node.isRequired,
+  preselectedUserType: string,
+  userTypes: propTypes.userTypes.isRequired,
+  userFields: propTypes.listingFields.isRequired,
+  referralId: string,
+
+  // from injectIntl
+  intl: intlShape.isRequired,
+};
+
+SignupForm.displayName = 'SignupForm';
+
+export default SignupForm;
+
