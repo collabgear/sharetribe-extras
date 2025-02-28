@@ -1,3 +1,5 @@
+import ShortUniqueId from 'short-unique-id';
+
 import { EXTENDED_DATA_SCHEMA_TYPES } from './types';
 import { getFieldValue } from './fieldHelpers';
 
@@ -197,3 +199,13 @@ export const hasPermissionToViewData = currentUser => {
  * @returns {Boolean} true if currentUser has been approved (state is 'active').
  */
 export const isUserAuthorized = currentUser => currentUser?.attributes?.state === 'active';
+
+/**
+ * Generate the new short unique Id for the referral subsystem
+ * @returns a string containing the short unique Id
+ */
+export const generateReferralId = () => {
+  const uid = new ShortUniqueId({ length: 10 });
+
+  return uid.rnd();
+};

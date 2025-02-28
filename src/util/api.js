@@ -144,3 +144,11 @@ export const transitionPrivileged = body => {
 export const createUserWithIdp = body => {
   return post('/api/auth/create-user-with-idp', body);
 };
+
+// Fetch the user referral users information
+//
+// See `server/api/referral/fetch-referral-users.js` to see what data should be
+// sent in the body.
+export const fetchReferralUsers = body => {
+  return post('/api/referral/fetch-referral-users', body);
+};

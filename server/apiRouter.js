@@ -21,6 +21,8 @@ const createUserWithIdp = require('./api/auth/createUserWithIdp');
 const { authenticateFacebook, authenticateFacebookCallback } = require('./api/auth/facebook');
 const { authenticateGoogle, authenticateGoogleCallback } = require('./api/auth/google');
 
+const fetchReferralUsers = require('./api/referral/fetch-referral-users');
+
 const router = express.Router();
 
 // ================ API router middleware: ================ //
@@ -79,5 +81,9 @@ router.get('/auth/google', authenticateGoogle);
 // with Google. In this route a Passport.js custom callback is used for calling
 // loginWithIdp endpoint in Sharetribe Auth API to authenticate user to the marketplace
 router.get('/auth/google/callback', authenticateGoogleCallback);
+
+// Fetch user ID of the referral user ( the user who has invited particular user to the platform ),
+// and the user IDs of the referees ( the users who have been invited by particular user to the platform )
+router.post('/referral/fetch-referral-users', fetchReferralUsers );
 
 module.exports = router;

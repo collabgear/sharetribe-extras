@@ -31,6 +31,7 @@ const PaymentMethodsPage = loadable(() => import(/* webpackChunkName: "PaymentMe
 const PrivacyPolicyPage = loadable(() => import(/* webpackChunkName: "PrivacyPolicyPage" */ '../containers/PrivacyPolicyPage/PrivacyPolicyPage'));
 const ProfilePage = loadable(() => import(/* webpackChunkName: "ProfilePage" */ '../containers/ProfilePage/ProfilePage'));
 const ProfileSettingsPage = loadable(() => import(/* webpackChunkName: "ProfileSettingsPage" */ '../containers/ProfileSettingsPage/ProfileSettingsPage'));
+const ReferralsInfoPage = loadable(() => import(/* webpackChunkName: "ReferralsInfoPage" */ '../containers/ReferralsInfoPage/ReferralsInfoPage'));
 const SearchPageWithMap = loadable(() => import(/* webpackChunkName: "SearchPageWithMap" */ /* webpackPrefetch: true */  '../containers/SearchPage/SearchPageWithMap'));
 const SearchPageWithGrid = loadable(() => import(/* webpackChunkName: "SearchPageWithGrid" */ /* webpackPrefetch: true */  '../containers/SearchPage/SearchPageWithGrid'));
 const StripePayoutPage = loadable(() => import(/* webpackChunkName: "StripePayoutPage" */ '../containers/StripePayoutPage/StripePayoutPage'));
@@ -327,6 +328,14 @@ const routeConfiguration = (layoutConfig, accessControlConfig) => {
       authPage: 'LoginPage',
       component: PaymentMethodsPage,
       loadData: pageDataLoadingAPI.PaymentMethodsPage.loadData,
+    },
+    {
+      path: '/referrals',
+      name: 'ReferralsInfoPage',
+      auth: true,
+      authPage: 'LoginPage',
+      component: ReferralsInfoPage,
+      loadData: pageDataLoadingAPI.ReferralsInfoPage.loadData,
     },
     {
       path: '/terms-of-service',

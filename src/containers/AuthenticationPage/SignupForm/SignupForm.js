@@ -25,7 +25,10 @@ const SignupFormComponent = props => (
   <FinalForm
     {...props}
     mutators={{ ...arrayMutators }}
-    initialValues={{ userType: props.preselectedUserType || getSoleUserTypeMaybe(props.userTypes) }}
+    initialValues={{
+      userType: props.preselectedUserType || getSoleUserTypeMaybe(props.userTypes),
+      referralId: props.referralId,
+    }}
     render={formRenderProps => {
       const {
         rootClassName,
@@ -194,6 +197,19 @@ const SignupFormComponent = props => (
               />
 
               <FieldTextInput
+                className={css.referralId}
+                type="text"
+                id={formId ? `${formId}.referralId` : 'referralId'}
+                name="referralId"
+                label={intl.formatMessage({
+                  id: 'SignupForm.referralIdLabel',
+                })}
+                placeholder={intl.formatMessage({
+                  id: 'SignupForm.referralIdPlaceholder',
+                })}
+              />
+
+              <FieldTextInput
                 className={css.password}
                 type="password"
                 id={formId ? `${formId}.password` : 'password'}
@@ -258,6 +274,7 @@ SignupFormComponent.defaultProps = {
   formId: null,
   inProgress: false,
   preselectedUserType: null,
+  referralId: null,
 };
 
 SignupFormComponent.propTypes = {
@@ -269,6 +286,7 @@ SignupFormComponent.propTypes = {
   preselectedUserType: string,
   userTypes: propTypes.userTypes.isRequired,
   userFields: propTypes.listingFields.isRequired,
+  referralId: string,
 
   // from injectIntl
   intl: intlShape.isRequired,

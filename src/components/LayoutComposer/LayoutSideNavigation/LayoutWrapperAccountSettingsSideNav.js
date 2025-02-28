@@ -114,6 +114,14 @@ const LayoutWrapperAccountSettingsSideNavComponent = props => {
         name: 'PaymentMethodsPage',
       },
     },
+    {
+      text: <FormattedMessage id="LayoutWrapperAccountSettingsSideNav.referralsTabTitle" />,
+      selected: currentPage === 'ReferralsInfoPage',
+      id: 'ReferralsInfoPageTab',
+      linkProps: {
+        name: 'ReferralsInfoPage',
+      },
+    },
   ];
 
   return <TabNav rootClassName={css.tabs} tabRootClassName={css.tab} tabs={tabs} />;
