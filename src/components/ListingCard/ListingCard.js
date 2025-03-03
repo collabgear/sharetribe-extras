@@ -1,5 +1,6 @@
 import React from 'react';
 import { string, func, bool, shape, oneOfType, arrayOf } from 'prop-types';
+import { propTypes } from '../../util/types';
 import classNames from 'classnames';
 import omit from 'lodash/omit';
 import swal from 'sweetalert';

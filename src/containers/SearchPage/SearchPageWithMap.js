@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { string, func, bool, shape, object, array, arrayOf } from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -9,7 +10,7 @@ import classNames from 'classnames';
 import { useConfiguration } from '../../context/configurationContext';
 import { useRouteConfiguration } from '../../context/routeConfigurationContext';
 
-import { useIntl, FormattedMessage } from '../../util/reactIntl';
+import { useIntl, intlShape, FormattedMessage } from '../../util/reactIntl';
 import {
   isAnyFilterActive,
   isMainSearchTypeKeywords,
