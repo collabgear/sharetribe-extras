@@ -753,10 +753,6 @@
   "ProfileSettingsPage.title": "Profile settings",
   "ProfileSettingsPage.viewProfileLink": "View your profile",
   "IntegerRangeFilter.labelSelectedPlain": "{minValue} - {maxValue}",
-<<<<<<< HEAD
-=======
-
->>>>>>> d32f84250 (merge from the upstream repository)
   "ReferralsInfoPage.genericFailure": "Failure loading the referral information. Please refresh the page and try again.",
   "ReferralsInfoPage.heading": "Referral information",
   "ReferralsInfoPage.loadingData": "Loading referral data…",
@@ -767,10 +763,6 @@
   "ReferralsInfoPage.refereesHeading": "Referee users",
   "ReferralsInfoPage.referralHeading": "Referral user",
   "ReferralsInfoPage.title": "Referral data",
-<<<<<<< HEAD
-=======
-
->>>>>>> d32f84250 (merge from the upstream repository)
   "ResponsiveBackgroundImageContainer.backgroundImageAlt": "Background image",
   "ResponsiveImage.noImage": "No image",
   "ReviewForm.reviewContentLabel": "Describe your experience",
