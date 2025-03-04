@@ -1,7 +1,7 @@
 # CollabGear upgrades for Sharetribe Web Template
 
 This repository is the fork from the official Sharetribe Web Template created by CollabGear
-development agency is dedicated to introduce the commonly requested features according to our
+development agency is dedicated to introducing the commonly requested features according to our
 many years of experience working on marketplace implementations using Sharetribe API and Web Template.
 
 You can find the live demo of this version at http://sharetribe-flex-extras.collabgear.work:3210/
@@ -11,8 +11,9 @@ You can find the live demo of this version at http://sharetribe-flex-extras.coll
 - Password Confirmation Field added to the singup page
 - Wishlist
 - Referral system with referrals/referees listed on user profile, referral code generation, referral link and referral QR code sharing
+- Percentage discounts/coupons managed by providers
 
-**Note**: In order for the referral system to work correctly you need to run the following flex-cli
+**Note**: In order for the referral system to work correctly, you need to run the following flex-cli
 commands to index the proper fields within the user profile:
 
 ```sh
@@ -28,7 +29,6 @@ You can try out a live demo with the above features at the test site: http://sha
 
 **Roadmap**
 
-- Percentage discounts/coupons managed by providers
 - Contact Us form
 - LinkedIn social signin and signup
 - Apple social signin and signup
