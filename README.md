@@ -4,7 +4,7 @@ This repository is the fork from the official Sharetribe Web Template created by
 development agency is dedicated to introducing the commonly requested features according to our
 many years of experience working on marketplace implementations using Sharetribe API and Web Template.
 
-You can find the live demo of this version at http://sharetribe-flex-extras.collabgear.work:3210/
+You can try out a live demo with the above features at the test site: http://sharetribe-flex-extras.collabgear.work:3210/
 
 **Features added on top of the standard Sharetribe Web Template**
 
@@ -24,8 +24,6 @@ flex-cli search set --marketplace=<marketplace-name> --doc="Referral Id of the u
 Also be sure to set the following environment variables ( used for referral system API backend ):
 - SERVER_APP_INTEGRATION_SDK_CLIENT_ID ( Integration API client ID )
 - SERVER_APP_INTEGRATION_SDK_CLIENT_SECRET ( Integration API client secret )
-
-You can try out a live demo with the above features at the test site: http://sharetribe-flex-extras.collabgear.work:3210/ .
 
 **Roadmap**
 
