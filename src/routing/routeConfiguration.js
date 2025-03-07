@@ -23,6 +23,7 @@ const InboxPage = loadable(() => import(/* webpackChunkName: "InboxPage" */ '../
 const LandingPage = loadable(() => import(/* webpackChunkName: "LandingPage" */ '../containers/LandingPage/LandingPage'));
 const ListingPageCoverPhoto = loadable(() => import(/* webpackChunkName: "ListingPageCoverPhoto" */ /* webpackPrefetch: true */ '../containers/ListingPage/ListingPageCoverPhoto'));
 const ListingPageCarousel = loadable(() => import(/* webpackChunkName: "ListingPageCarousel" */ /* webpackPrefetch: true */ '../containers/ListingPage/ListingPageCarousel'));
+const ManageDiscountsPage = loadable(() => import(/* webpackChunkName: "ManageDiscountsPage" */ '../containers/ManageDiscountsPage/ManageDiscountsPage'));
 const ManageListingsPage = loadable(() => import(/* webpackChunkName: "ManageListingsPage" */ '../containers/ManageListingsPage/ManageListingsPage'));
 const PasswordChangePage = loadable(() => import(/* webpackChunkName: "PasswordChangePage" */ '../containers/PasswordChangePage/PasswordChangePage'));
 const PasswordRecoveryPage = loadable(() => import(/* webpackChunkName: "PasswordRecoveryPage" */ '../containers/PasswordRecoveryPage/PasswordRecoveryPage'));
@@ -47,6 +48,7 @@ export const ACCOUNT_SETTINGS_PAGES = [
   'PasswordChangePage',
   'StripePayoutPage',
   'PaymentMethodsPage',
+  'ReferralsInfoPage',
 ];
 
 // https://en.wikipedia.org/wiki/Universally_unique_identifier#Nil_UUID
@@ -268,6 +270,20 @@ const routeConfiguration = (layoutConfig, accessControlConfig) => {
       auth: true,
       authPage: 'LoginPage',
       component: props => <NamedRedirect name="SaleDetailsPage" params={{ id: props.params?.id }} />,
+    },
+    {
+      path: '/sales',
+      name: 'SalesSettingsPage',
+      auth: true,
+      authPage: 'LoginPage',
+      component: () => <NamedRedirect name="ManageDiscountsPage" />,
+    },
+    {
+      path: '/discounts',
+      name: 'ManageDiscountsPage',
+      auth: true,
+      authPage: 'LoginPage',
+      component: ManageDiscountsPage,
     },
     {
       path: '/listings',
