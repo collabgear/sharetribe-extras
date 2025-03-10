@@ -95,7 +95,16 @@ const ProfileMenu = ({ currentPage, currentUser, onLogout }) => {
             <FormattedMessage id="TopbarDesktop.profileSettingsLink" />
           </NamedLink>
         </MenuItem>
-        <MenuItem key="AccountSettingsPage">
+        <MenuItem key="SalesSettingsPage">
+          <NamedLink
+            className={classNames(css.menuLink, currentPageClass('SalesSettingsPage'))}
+            name="SalesSettingsPage"
+          >
+            <span className={css.menuItemBorder} />
+            <FormattedMessage id="TopbarDesktop.salesLink" />
+          </NamedLink>
+        </MenuItem>
+        <MenuItem key="Page">
           <NamedLink
             className={classNames(css.menuLink, currentPageClass('AccountSettingsPage'))}
             name="AccountSettingsPage"

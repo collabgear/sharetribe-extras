@@ -8,6 +8,12 @@ const { LatLng, Money } = sdkTypes;
 export const PASSWORD_MIN_LENGTH = 8;
 export const PASSWORD_MAX_LENGTH = 256;
 
+export const DISCOUNT_CODE_MIN_LENGTH = 5;
+export const DISCOUNT_CODE_MAX_LENGTH = 10;
+export const DISCOUNT_TITLE_MAX_LENGTH = 50;
+export const DISCOUNT_MIN_PERCENT = 1;
+export const DISCOUNT_MAX_PERCENT = 99;
+
 const isNonEmptyString = val => {
   return typeof val === 'string' && val.trim().length > 0;
 };
@@ -122,6 +128,12 @@ const EMAIL_RE = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
 export const emailFormatValid = message => value => {
   return value && EMAIL_RE.test(value) ? VALID : message;
+};
+
+const DISCOUNT_CODE_RE = /^[A-Za-z0-9_]+$/i;
+
+export const discountCodeFormatValid = message => value => {
+  return value && DISCOUNT_CODE_RE.test(value) ? VALID : message;
 };
 
 export const moneySubUnitAmountAtLeast = (message, minValue) => value => {

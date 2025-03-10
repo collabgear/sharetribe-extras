@@ -86,3 +86,12 @@
     margin: 24px 0;
   }
 }
+
+.discountField {
+  padding: 0 24px;
+  margin-top: 24px;
+
+  @media (--viewportMedium) {
+    padding: 0;
+  }
+}

@@ -341,7 +341,8 @@ const calculateLineItems = (
   isOwnListing,
   fetchLineItemsInProgress,
   onFetchTransactionLineItems,
-  seatsEnabled
+  seatsEnabled,
+  discountCode,
 ) => formValues => {
   const { startDate, endDate, seats } = formValues?.values || {};
 
@@ -358,6 +359,7 @@ const calculateLineItems = (
       orderData,
       listingId,
       isOwnListing,
+      discountCode,
     });
   }
 };
@@ -505,6 +507,7 @@ export const BookingDatesForm = props => {
     price: unitPrice,
     listingId,
     isOwnListing,
+    discountApplicable,
     fetchLineItemsInProgress,
     onFetchTransactionLineItems,
     timeZone,
@@ -777,6 +780,21 @@ export const BookingDatesForm = props => {
                 ))}
               </FieldSelect>
             ) : null}
+
+            {discountApplicable ? (
+              <FieldTextInput
+                id={`${formId}.discountCode`}
+                className={css.discountField}
+                name="discountCode"
+                type="text"
+                label={intl.formatMessage({ id: 'BookingDatesForm.discountCodeLabel'})}
+                placeholder={intl.formatMessage(
+                  { id: 'BookingDatesForm.discountCodePlaceholder'},
+                  { currency: unitPrice.currency }
+                )}
+              />
+
+            ) : null }
 
             {showEstimatedBreakdown ? (
               <div className={css.priceBreakdownContainer}>

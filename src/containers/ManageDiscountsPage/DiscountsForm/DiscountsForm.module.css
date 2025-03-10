@@ -1,0 +1,131 @@
+@import '../../../styles/customMediaQueries.css';
+
+.root {
+}
+
+.discountsSection {
+  margin-top: 16px;
+  margin-bottom: 46px;
+  padding-top: 6px;
+
+  @media (--viewportMedium) {
+    margin-bottom: 56px;
+    padding-top: 0;
+  }
+}
+
+.topButtonsWrapper {
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  @media (--viewportMedium) {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+}
+
+.bottomWrapper {
+  margin-top: 46px;
+
+
+  @media (--viewportMedium) {
+    margin-top: 96px;
+    justify-content: center;
+  }
+}
+
+.saveButton {
+  width: 100%;
+
+  @media (--viewportMedium) {
+    max-width: 220px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.error {
+  composes: h4 from global;
+  color: var(--colorFail);
+  text-align: center;
+  display: inline-block;
+  width: 100%;
+  margin: 24px 0;
+
+  @media (--viewportMedium) {
+    margin: 24px 0;
+  }
+}
+
+.discountRow {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 25px;
+
+  @media (--viewportMedium) {
+    flex-direction: row;
+  }
+}
+
+.discountLabel {
+  min-width: 90px;
+
+  @media (--viewportMedium) {
+    margin-top: 12px;
+    margin-right: 10px;
+  }
+}
+
+.codeField {
+  padding-top: 10px;
+
+  @media (--viewportMedium) {
+    flex-basis: 1;
+    padding: 0 10px 0 10px
+  }
+}
+
+.titleField {
+  padding-top: 10px;
+
+  @media (--viewportMedium) {
+    flex-basis: 3;
+    padding: 0 10px 0 10px
+  }
+}
+
+.typeField {
+  padding-top: 10px;
+
+  @media (--viewportMedium) {
+    flex-basis: 2;
+    padding: 0 10px 0 10px
+  }
+}
+
+.amountField {
+  padding-top: 10px;
+
+  @media (--viewportMedium) {
+    flex-basis: 2;
+    padding: 0 10px 0 10px
+  }
+}
+
+.helperLink {
+  composes: a from global;
+  color: var(--colorGrey700);
+  font-weight: var(--fontWeightMedium);
+  text-decoration: underline;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.removeDiscountIcon {
+  margin-top: 12px;
+  margin-left: 10px;
+  cursor: pointer;
+}

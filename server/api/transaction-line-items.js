@@ -3,17 +3,27 @@ const { getSdk, handleError, serialize, fetchCommission } = require('../api-util
 const { constructValidLineItems } = require('../api-util/lineItemHelpers');
 
 module.exports = (req, res) => {
-  const { isOwnListing, listingId, orderData } = req.body;
+  const { isOwnListing, listingId, discountCode, orderData } = req.body;
 
   const sdk = getSdk(req, res);
 
   const listingPromise = () =>
-    isOwnListing ? sdk.ownListings.show({ id: listingId }) : sdk.listings.show({ id: listingId });
+    isOwnListing
+      ? sdk.ownListings.show({
+          id: listingId, include: ['author'], 'fields.user': ['profile.privateData']
+        })
+      : sdk.listings.show({
+          id: listingId, include: ['author'], 'fields.user': ['profile.privateData']
+        });
 
   Promise.all([listingPromise(), fetchCommission(sdk)])
     .then(([showListingResponse, fetchAssetsResponse]) => {
       const listing = showListingResponse.data.data;
       const commissionAsset = fetchAssetsResponse.data.data[0];
+      const author = showListingResponse.data.included[ 0 ];
+      const authorPrivateData = author.attributes.profile.privateData || {};
+      const { providerDiscounts = {}} = authorPrivateData;
+      const discount = discountCode ? providerDiscounts[ discountCode ] : null;
 
       const { providerCommission, customerCommission } =
         commissionAsset?.type === 'jsonAsset' ? commissionAsset.attributes.data : {};
@@ -22,7 +32,8 @@ module.exports = (req, res) => {
         listing,
         orderData,
         providerCommission,
-        customerCommission
+        customerCommission,
+        discount
       );
 
       // Because we are using returned lineItems directly in this template we need to use the helper function

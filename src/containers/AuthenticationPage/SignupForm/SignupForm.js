@@ -1,9 +1,10 @@
 import React from 'react';
 import { Form as FinalForm } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
+import { bool, string, node } from 'prop-types';
 import classNames from 'classnames';
 
-import { FormattedMessage, useIntl } from '../../../util/reactIntl';
+import { FormattedMessage, useIntl, intlShape } from '../../../util/reactIntl';
 import { propTypes } from '../../../util/types';
 import * as validators from '../../../util/validators';
 import { getPropsForCustomUserFieldInputs } from '../../../util/userHelpers';
@@ -309,6 +310,8 @@ const SignupForm = props => {
   const intl = useIntl();
   return <SignupFormComponent {...props} intl={intl} />;
 };
+
+// TODO: remove propTypes and defaultProps from all the modified components
 
 SignupFormComponent.defaultProps = {
   rootClassName: null,
