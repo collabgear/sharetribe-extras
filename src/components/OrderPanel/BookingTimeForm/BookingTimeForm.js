@@ -28,7 +28,7 @@ const handleFetchLineItems = props => formValues => {
     onFetchTransactionLineItems,
     seatsEnabled,
   } = props;
-  const { bookingStartTime, bookingEndTime, seats } = formValues.values;
+  const { bookingStartTime, bookingEndTime, seats, discountCode } = formValues.values;
   const startDate = bookingStartTime ? timestampToDate(bookingStartTime) : null;
   const endDate = bookingEndTime ? timestampToDate(bookingEndTime) : null;
 
@@ -47,6 +47,7 @@ const handleFetchLineItems = props => formValues => {
       orderData,
       listingId,
       isOwnListing,
+      discountCode,
     });
   }
 };
@@ -102,6 +103,7 @@ export const BookingTimeForm = props => {
           pristine,
           handleSubmit,
           isOwnListing,
+          discountApplicable,
           listingId,
           values,
           monthlyTimeSlots,
@@ -190,6 +192,21 @@ export const BookingTimeForm = props => {
                 ))}
               </FieldSelect>
             ) : null}
+
+            {discountApplicable ? (
+              <FieldTextInput
+                id={`${formId}.discountCode`}
+                className={css.discountField}
+                name="discountCode"
+                type="text"
+                label={intl.formatMessage({ id: 'BookingTimeForm.discountCodeLabel'})}
+                placeholder={intl.formatMessage(
+                  { id: 'BookingTimeForm.discountCodePlaceholder'},
+                  { currency: unitPrice.currency }
+                )}
+              />
+
+            ) : null }
 
             {showEstimatedBreakdown ? (
               <div className={css.priceBreakdownContainer}>

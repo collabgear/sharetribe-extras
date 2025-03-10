@@ -129,7 +129,9 @@ const getDateRangeWithSeatsAndLineItems = (orderData, code) => {
  * @param {Object} customerCommission
  * @returns {Array} lineItems
  */
-exports.transactionLineItems = (listing, orderData, providerCommission, customerCommission) => {
+exports.transactionLineItems = (
+  listing, orderData, providerCommission, customerCommission, discount
+) => {
   const publicData = listing.attributes.publicData;
   const unitPrice = listing.attributes.price;
   const currency = unitPrice.currency;
@@ -241,6 +243,29 @@ exports.transactionLineItems = (listing, orderData, providerCommission, customer
       ]
     : [];
 
+  const discountMaybe = [];
+
+  // TODO: implement the check that the discounted value does not get lower some threshold amount
+  // Configure it per marketplace
+
+  if( discount ){
+    if( discount.type === 'monetary'){
+      discountMaybe.push({
+        code: 'line-item/discount',
+        unitPrice: new Money( parseInt( discount.amount ) * -100, currency),
+        quantity: 1,
+        includeFor: ['customer'],
+      });
+    } else if( discount.type === 'percent'){
+      discountMaybe.push({
+        code: 'line-item/discount',
+        unitPrice: calculateTotalFromLineItems([order]),
+        percentage: getNegation( parseInt( discount.amount )),
+        includeFor: ['customer'],
+      });
+    }
+  }
+
   // Let's keep the base price (order) as first line item and provider and customer commissions as last.
   // Note: the order matters only if OrderBreakdown component doesn't recognize line-item.
   const lineItems = [
@@ -248,6 +273,7 @@ exports.transactionLineItems = (listing, orderData, providerCommission, customer
     ...extraLineItems,
     ...providerCommissionMaybe,
     ...customerCommissionMaybe,
+    ...discountMaybe,
   ];
 
   return lineItems;

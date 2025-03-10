@@ -243,7 +243,9 @@ const OrderPanel = props => {
   } = props;
 
   const publicData = listing?.attributes?.publicData || {};
-  const { listingType, unitType, transactionProcessAlias = '' } = publicData || {};
+  const {
+    listingType, unitType, discountApplicable, transactionProcessAlias = ''
+  } = publicData || {};
 
   const processName = resolveLatestProcessName(transactionProcessAlias.split('/')[0]);
   const lineItemUnitType = lineItemUnitTypeMaybe || `line-item/${unitType}`;
@@ -370,6 +372,7 @@ const OrderPanel = props => {
             dayCountAvailableForBooking={dayCountAvailableForBooking}
             listingId={listing.id}
             isOwnListing={isOwnListing}
+            discountApplicable={discountApplicable}
             monthlyTimeSlots={monthlyTimeSlots}
             onFetchTimeSlots={onFetchTimeSlots}
             startDatePlaceholder={intl.formatDate(TODAY, dateFormattingOptions)}
@@ -394,6 +397,7 @@ const OrderPanel = props => {
             dayCountAvailableForBooking={dayCountAvailableForBooking}
             listingId={listing.id}
             isOwnListing={isOwnListing}
+            discountApplicable={discountApplicable}
             monthlyTimeSlots={monthlyTimeSlots}
             onFetchTimeSlots={onFetchTimeSlots}
             timeZone={timeZone}
@@ -417,6 +421,7 @@ const OrderPanel = props => {
             displayDeliveryMethod={displayPickup || displayShipping}
             listingId={listing.id}
             isOwnListing={isOwnListing}
+            discountApplicable={discountApplicable}
             marketplaceName={marketplaceName}
             onFetchTransactionLineItems={onFetchTransactionLineItems}
             onContactUser={onContactUser}

@@ -367,9 +367,9 @@ const fetchMonthlyTimeSlots = (dispatch, listing) => {
   return Promise.all([]);
 };
 
-export const fetchTransactionLineItems = ({ orderData, listingId, isOwnListing }) => dispatch => {
+export const fetchTransactionLineItems = ({ orderData, listingId, isOwnListing, discountCode }) => dispatch => {
   dispatch(fetchLineItemsRequest());
-  transactionLineItems({ orderData, listingId, isOwnListing })
+  transactionLineItems({ orderData, listingId, isOwnListing, discountCode })
     .then(response => {
       const lineItems = response.data;
       dispatch(fetchLineItemsSuccess(lineItems));

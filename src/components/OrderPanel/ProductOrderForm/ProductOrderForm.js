@@ -31,6 +31,7 @@ const handleFetchLineItems = ({
   displayDeliveryMethod,
   listingId,
   isOwnListing,
+  discountCode,
   fetchLineItemsInProgress,
   onFetchTransactionLineItems,
 }) => {
@@ -47,6 +48,7 @@ const handleFetchLineItems = ({
       orderData: { stockReservationQuantity, ...deliveryMethodMaybe },
       listingId,
       isOwnListing,
+      discountCode,
     });
   }
 };
@@ -123,6 +125,7 @@ const renderForm = formRenderProps => {
     displayDeliveryMethod,
     listingId,
     isOwnListing,
+    discountApplicable,
     onFetchTransactionLineItems,
     onContactUser,
     lineItems,
@@ -139,7 +142,7 @@ const renderForm = formRenderProps => {
     setMounted(true);
 
     // Side-effect: fetch line-items after mounting if possible
-    const { quantity, deliveryMethod } = values;
+    const { quantity, deliveryMethod, discountCode } = values;
     if (quantity && !formRenderProps.hasMultipleDeliveryMethods) {
       handleFetchLineItems({
         quantity,
@@ -147,6 +150,7 @@ const renderForm = formRenderProps => {
         displayDeliveryMethod,
         listingId,
         isOwnListing,
+        discountCode,
         fetchLineItemsInProgress,
         onFetchTransactionLineItems,
       });
@@ -155,13 +159,14 @@ const renderForm = formRenderProps => {
 
   // If form values change, update line-items for the order breakdown
   const handleOnChange = formValues => {
-    const { quantity, deliveryMethod } = formValues.values;
+    const { quantity, deliveryMethod, discountCode } = formValues.values;
     if (mounted) {
       handleFetchLineItems({
         quantity,
         deliveryMethod,
         listingId,
         isOwnListing,
+        discountCode,
         fetchLineItemsInProgress,
         onFetchTransactionLineItems,
       });
@@ -256,6 +261,21 @@ const renderForm = formRenderProps => {
         formId={formId}
         intl={intl}
       />
+
+      {discountApplicable ? (
+        <FieldTextInput
+          id={`${formId}.discountCode`}
+          className={css.discountField}
+          name="discountCode"
+          type="text"
+          label={intl.formatMessage({ id: 'ProductOrderForm.discountCodeLabel'})}
+          placeholder={intl.formatMessage(
+            { id: 'ProductOrderForm.discountCodePlaceholder'},
+            { currency: price.currency }
+          )}
+        />
+
+      ) : null }
 
       {showBreakdown ? (
         <div className={css.breakdownWrapper}>

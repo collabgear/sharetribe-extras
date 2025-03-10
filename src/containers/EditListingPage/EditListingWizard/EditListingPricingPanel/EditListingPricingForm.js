@@ -11,7 +11,7 @@ import { formatMoney } from '../../../../util/currency';
 import { types as sdkTypes } from '../../../../util/sdkLoader';
 
 // Import shared components
-import { Button, Form, FieldCurrencyInput, FieldTextInput } from '../../../../components';
+import { Button, Form, FieldCurrencyInput, FieldCheckbox } from '../../../../components';
 
 // Import modules from this directory
 import css from './EditListingPricingForm.module.css';
@@ -120,6 +120,11 @@ export const EditListingPricingForm = props => (
             placeholder={intl.formatMessage({ id: 'EditListingPricingForm.priceInputPlaceholder' })}
             currencyConfig={appSettings.getCurrencyFormatting(marketplaceCurrency)}
             validate={priceValidators}
+          />
+          <FieldCheckbox
+            id={`${formId}discountApplicable`}
+            name="discountApplicable"
+            label={intl.formatMessage({ id: 'EditListingPricingForm.discountApplicable' })}
           />
 
           <Button

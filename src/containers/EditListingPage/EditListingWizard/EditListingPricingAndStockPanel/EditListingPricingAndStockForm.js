@@ -17,6 +17,7 @@ import {
   Button,
   Form,
   FieldCurrencyInput,
+  FieldCheckbox,
   FieldCheckboxGroup,
   FieldTextInput,
 } from '../../../../components';
@@ -194,6 +195,11 @@ export const EditListingPricingAndStockForm = props => (
             })}
             currencyConfig={appSettings.getCurrencyFormatting(marketplaceCurrency)}
             validate={priceValidators}
+          />
+          <FieldCheckbox
+            id={`${formId}discountApplicable`}
+            name="discountApplicable"
+            label={intl.formatMessage({ id: 'EditListingPricingAndStockForm.discountApplicable' })}
           />
 
           <UpdateStockToInfinityCheckboxMaybe
