@@ -33,7 +33,7 @@ export const ReferralsInfoPageComponent = props => {
   const currentUserLoaded = !!ensuredCurrentUser.id;
   const referralOwnId = ensuredCurrentUser?.attributes?.profile?.publicData?.referralOwnId;
   const referralOwnLink =
-    `${process.env.REACT_APP_MARKETPLACE_ROOT_URL}/signup/referralId=${referralOwnId}`;
+    `${process.env.REACT_APP_MARKETPLACE_ROOT_URL}/signup?referralId=${referralOwnId}`;
 
   const referralQrCode = (
     <div className={css.qrcodeWrapper}>
