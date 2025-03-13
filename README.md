@@ -11,7 +11,7 @@ You can try out a live demo with the above features at the test site: http://sha
 - Password Confirmation Field added to the singup page
 - Wishlist
 - Referral system with referrals/referees listed on user profile, referral code generation, referral link and referral QR code sharing
-- Percentage discounts/coupons managed by providers
+- Percentage and monetary discounts/coupons managed by providers
 
 **Note**: In order for the referral system to work correctly, you need to run the following flex-cli
 commands to index the proper fields within the user profile:
